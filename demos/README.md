@@ -26,12 +26,6 @@ spectrograms:
 | `clean` | Clean |
 | `fastenhancer_b_original` | FastEnhancer-B Original |
 | `fastenhancer_b_adams` | FastEnhancer-B AdaMS |
-| `fspen_original` | FSPEN Original |
-| `fspen_adams` | FSPEN AdaMS |
-| `bsrnn_original` | BSRNN Original |
-| `bsrnn_adams` | BSRNN AdaMS |
-| `lisennet_original` | LiSenNet Original |
-| `lisennet_adams` | LiSenNet AdaMS |
 
 Path pattern:
 

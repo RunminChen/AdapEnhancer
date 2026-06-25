@@ -87,6 +87,20 @@
       color: #28313d;
     }
 
+    .demo-link {
+      display: inline-flex;
+      align-items: center;
+      border: 1px solid rgba(200, 67, 53, 0.28);
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 800;
+      margin-top: 16px;
+      padding: 9px 12px;
+      text-decoration: none;
+    }
+
     .hero-stats {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -167,7 +181,7 @@
     table {
       width: 100%;
       border-collapse: collapse;
-      min-width: 1080px;
+      min-width: 920px;
       font-size: 13px;
     }
 
@@ -478,6 +492,7 @@
           results and a focused DNS2020 listening desk with matched
           spectrograms.
         </p>
+        <a class="demo-link" href="https://runminchen.github.io/AdapEnhancer/">https://runminchen.github.io/AdapEnhancer/</a>
         <div class="badges">
           <span class="badge">Adaptive DPM Placement</span>
           <span class="badge">Acoustic-State Residual Weighting</span>
@@ -530,16 +545,7 @@
                 </tr>
               </thead>
               <tbody>
-                <tr><td>GTCRN [9]</td><td>24</td><td>40M</td><td>3.43</td><td>3.36</td><td>4.02</td><td>3.08</td><td>18.8</td><td>2.87</td><td>0.940</td><td>0.848</td><td>3.6</td></tr>
-                <tr><td>LiSenNet-b [11]</td><td>37</td><td>56M</td><td>3.34</td><td>3.30</td><td>3.90</td><td>2.98</td><td>13.5</td><td>3.08</td><td>0.938</td><td>0.842</td><td>3.7</td></tr>
-                <tr><td>LiSenNet-c [11]</td><td>37</td><td>56M</td><td>3.42</td><td>3.34</td><td>4.03</td><td>3.07</td><td>18.5</td><td>2.98</td><td>0.941</td><td>0.851</td><td>3.4</td></tr>
-                <tr><td>FSPEN-c [10]</td><td>79</td><td>64M</td><td>3.40</td><td>3.33</td><td>4.00</td><td>3.05</td><td>18.4</td><td>3.00</td><td>0.942</td><td>0.850</td><td>3.6</td></tr>
-                <tr><td>BSRNN-d [12]</td><td>334</td><td>245M</td><td>3.44</td><td>3.36</td><td>4.00</td><td>3.07</td><td>18.9</td><td>3.06</td><td>0.942</td><td>0.855</td><td>3.4</td></tr>
-                <tr><td>FastEnhancer-T</td><td>22</td><td>55M</td><td>3.42</td><td>3.34</td><td>4.01</td><td>3.06</td><td>18.6</td><td>2.99</td><td>0.940</td><td>0.850</td><td>3.6</td></tr>
                 <tr><td>FastEnhancer-B</td><td>92</td><td>262M</td><td>3.47</td><td>3.38</td><td>4.02</td><td>3.10</td><td>19.0</td><td>3.13</td><td>0.945</td><td>0.861</td><td>3.2</td></tr>
-                <tr><td>FastEnhancer-S</td><td>195</td><td>664M</td><td>3.49</td><td>3.40</td><td>4.03</td><td>3.12</td><td>19.2</td><td>3.19</td><td>0.947</td><td>0.866</td><td>3.2</td></tr>
-                <tr><td>FastEnhancer-M</td><td>492</td><td>2.9G</td><td>3.48</td><td>3.39</td><td>4.02</td><td>3.11</td><td>19.4</td><td>3.24</td><td>0.950</td><td>0.873</td><td>2.8</td></tr>
-                <tr><td>FastEnhancer-L</td><td>1105</td><td>11G</td><td>3.53</td><td>3.44</td><td>4.04</td><td>3.16</td><td>19.6</td><td>3.26</td><td>0.952</td><td>0.877</td><td>3.1</td></tr>
                 <tr class="highlight"><td>AdapEnhancer-B</td><td>85</td><td>434M</td><td>--</td><td>--</td><td>--</td><td>--</td><td>--</td><td>3.18</td><td>0.946</td><td>--</td><td>2.9</td></tr>
               </tbody>
             </table>
@@ -552,7 +558,7 @@
     <section>
       <div class="section-head">
         <h2>DNS2020 Listening Demo</h2>
-        <p class="note">Noisy, AdapEnhancer-B, and clean reference stay visible. Use the model buttons to switch Original/AdaMS comparison pairs.</p>
+        <p class="note">Noisy, AdapEnhancer-B, clean reference, and the FastEnhancer-B Original/AdaMS pair are shown for each sample.</p>
       </div>
       <div class="demo-shell">
         <div id="sample-tabs" class="sample-tabs"></div>
@@ -580,35 +586,9 @@
       { key: "clean", label: "Clean", tag: "Reference", className: "clean" }
     ];
 
-    const comparisonFamilies = [
-      {
-        label: "FastEnhancer-B",
-        tracks: [
-          { key: "fastenhancer_b_original", label: "FastEnhancer-B Original", tag: "Original", className: "" },
-          { key: "fastenhancer_b_adams", label: "FastEnhancer-B AdaMS", tag: "AdaMS", className: "adams" }
-        ]
-      },
-      {
-        label: "FSPEN",
-        tracks: [
-          { key: "fspen_original", label: "FSPEN Original", tag: "Original", className: "" },
-          { key: "fspen_adams", label: "FSPEN AdaMS", tag: "AdaMS", className: "adams" }
-        ]
-      },
-      {
-        label: "BSRNN",
-        tracks: [
-          { key: "bsrnn_original", label: "BSRNN Original", tag: "Original", className: "" },
-          { key: "bsrnn_adams", label: "BSRNN AdaMS", tag: "AdaMS", className: "adams" }
-        ]
-      },
-      {
-        label: "LiSenNet",
-        tracks: [
-          { key: "lisennet_original", label: "LiSenNet Original", tag: "Original", className: "" },
-          { key: "lisennet_adams", label: "LiSenNet AdaMS", tag: "AdaMS", className: "adams" }
-        ]
-      }
+    const comparisonTracks = [
+      { key: "fastenhancer_b_original", label: "FastEnhancer-B Original", tag: "Original", className: "" },
+      { key: "fastenhancer_b_adams", label: "FastEnhancer-B AdaMS", tag: "AdaMS", className: "adams" }
     ];
 
     const root = document.getElementById("demo-root");
@@ -636,14 +616,6 @@
       return card;
     }
 
-    function renderComparisonPair(sample, toolbar, pairGrid, activeIndex) {
-      const family = comparisonFamilies[activeIndex];
-      [...toolbar.children].forEach((button, index) => {
-        button.classList.toggle("active", index === activeIndex);
-      });
-      pairGrid.replaceChildren(...family.tracks.map((track) => createTrackCard(sample, track)));
-    }
-
     function renderSample(activeSampleIndex) {
       const sample = samples[activeSampleIndex];
       [...sampleTabs.children].forEach((button, index) => {
@@ -662,7 +634,9 @@
         </div>
         <div class="reference-grid"></div>
         <div class="comparison-panel">
-          <div class="pair-toolbar" aria-label="${sample.id} model selector"></div>
+          <div class="pair-toolbar">
+            <span class="pair-button active">FastEnhancer-B Comparison</span>
+          </div>
           <div class="pair-grid"></div>
         </div>
       `;
@@ -670,17 +644,8 @@
       const referenceGrid = article.querySelector(".reference-grid");
       referenceGrid.replaceChildren(...referenceTracks.map((track) => createTrackCard(sample, track)));
 
-      const toolbar = article.querySelector(".pair-toolbar");
       const pairGrid = article.querySelector(".pair-grid");
-      comparisonFamilies.forEach((family, index) => {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "pair-button";
-        button.textContent = family.label;
-        button.addEventListener("click", () => renderComparisonPair(sample, toolbar, pairGrid, index));
-        toolbar.appendChild(button);
-      });
-      renderComparisonPair(sample, toolbar, pairGrid, 0);
+      pairGrid.replaceChildren(...comparisonTracks.map((track) => createTrackCard(sample, track)));
 
       root.replaceChildren(article);
     }

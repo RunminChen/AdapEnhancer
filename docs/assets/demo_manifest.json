@@ -43,54 +43,6 @@
         "audio": "assets/audio/fileid_5/fastenhancer_b_adams.wav",
         "spectrogram": "assets/spectrograms/fileid_5/fastenhancer_b_adams.png",
         "source": "fileid_5.wav"
-      },
-      {
-        "key": "fspen_original",
-        "label": "FSPEN Original",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_5/fspen_original.wav",
-        "spectrogram": "assets/spectrograms/fileid_5/fspen_original.png",
-        "source": "fileid_5.wav"
-      },
-      {
-        "key": "fspen_adams",
-        "label": "FSPEN AdaMS",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_5/fspen_adams.wav",
-        "spectrogram": "assets/spectrograms/fileid_5/fspen_adams.png",
-        "source": "fileid_5.wav"
-      },
-      {
-        "key": "bsrnn_original",
-        "label": "BSRNN Original",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_5/bsrnn_original.wav",
-        "spectrogram": "assets/spectrograms/fileid_5/bsrnn_original.png",
-        "source": "fileid_5.wav"
-      },
-      {
-        "key": "bsrnn_adams",
-        "label": "BSRNN AdaMS",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_5/bsrnn_adams.wav",
-        "spectrogram": "assets/spectrograms/fileid_5/bsrnn_adams.png",
-        "source": "fileid_5.wav"
-      },
-      {
-        "key": "lisennet_original",
-        "label": "LiSenNet Original",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_5/lisennet_original.wav",
-        "spectrogram": "assets/spectrograms/fileid_5/lisennet_original.png",
-        "source": "fileid_5.wav"
-      },
-      {
-        "key": "lisennet_adams",
-        "label": "LiSenNet AdaMS",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_5/lisennet_adams.wav",
-        "spectrogram": "assets/spectrograms/fileid_5/lisennet_adams.png",
-        "source": "fileid_5.wav"
       }
     ]
   },
@@ -137,54 +89,6 @@
         "group": "Table 2",
         "audio": "assets/audio/fileid_38/fastenhancer_b_adams.wav",
         "spectrogram": "assets/spectrograms/fileid_38/fastenhancer_b_adams.png",
-        "source": "fileid_38.wav"
-      },
-      {
-        "key": "fspen_original",
-        "label": "FSPEN Original",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_38/fspen_original.wav",
-        "spectrogram": "assets/spectrograms/fileid_38/fspen_original.png",
-        "source": "fileid_38.wav"
-      },
-      {
-        "key": "fspen_adams",
-        "label": "FSPEN AdaMS",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_38/fspen_adams.wav",
-        "spectrogram": "assets/spectrograms/fileid_38/fspen_adams.png",
-        "source": "fileid_38.wav"
-      },
-      {
-        "key": "bsrnn_original",
-        "label": "BSRNN Original",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_38/bsrnn_original.wav",
-        "spectrogram": "assets/spectrograms/fileid_38/bsrnn_original.png",
-        "source": "fileid_38.wav"
-      },
-      {
-        "key": "bsrnn_adams",
-        "label": "BSRNN AdaMS",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_38/bsrnn_adams.wav",
-        "spectrogram": "assets/spectrograms/fileid_38/bsrnn_adams.png",
-        "source": "fileid_38.wav"
-      },
-      {
-        "key": "lisennet_original",
-        "label": "LiSenNet Original",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_38/lisennet_original.wav",
-        "spectrogram": "assets/spectrograms/fileid_38/lisennet_original.png",
-        "source": "fileid_38.wav"
-      },
-      {
-        "key": "lisennet_adams",
-        "label": "LiSenNet AdaMS",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_38/lisennet_adams.wav",
-        "spectrogram": "assets/spectrograms/fileid_38/lisennet_adams.png",
         "source": "fileid_38.wav"
       }
     ]
@@ -233,54 +137,6 @@
         "audio": "assets/audio/fileid_88/fastenhancer_b_adams.wav",
         "spectrogram": "assets/spectrograms/fileid_88/fastenhancer_b_adams.png",
         "source": "fileid_88.wav"
-      },
-      {
-        "key": "fspen_original",
-        "label": "FSPEN Original",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_88/fspen_original.wav",
-        "spectrogram": "assets/spectrograms/fileid_88/fspen_original.png",
-        "source": "fileid_88.wav"
-      },
-      {
-        "key": "fspen_adams",
-        "label": "FSPEN AdaMS",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_88/fspen_adams.wav",
-        "spectrogram": "assets/spectrograms/fileid_88/fspen_adams.png",
-        "source": "fileid_88.wav"
-      },
-      {
-        "key": "bsrnn_original",
-        "label": "BSRNN Original",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_88/bsrnn_original.wav",
-        "spectrogram": "assets/spectrograms/fileid_88/bsrnn_original.png",
-        "source": "fileid_88.wav"
-      },
-      {
-        "key": "bsrnn_adams",
-        "label": "BSRNN AdaMS",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_88/bsrnn_adams.wav",
-        "spectrogram": "assets/spectrograms/fileid_88/bsrnn_adams.png",
-        "source": "fileid_88.wav"
-      },
-      {
-        "key": "lisennet_original",
-        "label": "LiSenNet Original",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_88/lisennet_original.wav",
-        "spectrogram": "assets/spectrograms/fileid_88/lisennet_original.png",
-        "source": "fileid_88.wav"
-      },
-      {
-        "key": "lisennet_adams",
-        "label": "LiSenNet AdaMS",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_88/lisennet_adams.wav",
-        "spectrogram": "assets/spectrograms/fileid_88/lisennet_adams.png",
-        "source": "fileid_88.wav"
       }
     ]
   },
@@ -328,54 +184,6 @@
         "audio": "assets/audio/fileid_161/fastenhancer_b_adams.wav",
         "spectrogram": "assets/spectrograms/fileid_161/fastenhancer_b_adams.png",
         "source": "fileid_161.wav"
-      },
-      {
-        "key": "fspen_original",
-        "label": "FSPEN Original",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_161/fspen_original.wav",
-        "spectrogram": "assets/spectrograms/fileid_161/fspen_original.png",
-        "source": "fileid_161.wav"
-      },
-      {
-        "key": "fspen_adams",
-        "label": "FSPEN AdaMS",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_161/fspen_adams.wav",
-        "spectrogram": "assets/spectrograms/fileid_161/fspen_adams.png",
-        "source": "fileid_161.wav"
-      },
-      {
-        "key": "bsrnn_original",
-        "label": "BSRNN Original",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_161/bsrnn_original.wav",
-        "spectrogram": "assets/spectrograms/fileid_161/bsrnn_original.png",
-        "source": "fileid_161.wav"
-      },
-      {
-        "key": "bsrnn_adams",
-        "label": "BSRNN AdaMS",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_161/bsrnn_adams.wav",
-        "spectrogram": "assets/spectrograms/fileid_161/bsrnn_adams.png",
-        "source": "fileid_161.wav"
-      },
-      {
-        "key": "lisennet_original",
-        "label": "LiSenNet Original",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_161/lisennet_original.wav",
-        "spectrogram": "assets/spectrograms/fileid_161/lisennet_original.png",
-        "source": "fileid_161.wav"
-      },
-      {
-        "key": "lisennet_adams",
-        "label": "LiSenNet AdaMS",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_161/lisennet_adams.wav",
-        "spectrogram": "assets/spectrograms/fileid_161/lisennet_adams.png",
-        "source": "fileid_161.wav"
       }
     ]
   },
@@ -422,54 +230,6 @@
         "group": "Table 2",
         "audio": "assets/audio/fileid_192/fastenhancer_b_adams.wav",
         "spectrogram": "assets/spectrograms/fileid_192/fastenhancer_b_adams.png",
-        "source": "fileid_192.wav"
-      },
-      {
-        "key": "fspen_original",
-        "label": "FSPEN Original",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_192/fspen_original.wav",
-        "spectrogram": "assets/spectrograms/fileid_192/fspen_original.png",
-        "source": "fileid_192.wav"
-      },
-      {
-        "key": "fspen_adams",
-        "label": "FSPEN AdaMS",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_192/fspen_adams.wav",
-        "spectrogram": "assets/spectrograms/fileid_192/fspen_adams.png",
-        "source": "fileid_192.wav"
-      },
-      {
-        "key": "bsrnn_original",
-        "label": "BSRNN Original",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_192/bsrnn_original.wav",
-        "spectrogram": "assets/spectrograms/fileid_192/bsrnn_original.png",
-        "source": "fileid_192.wav"
-      },
-      {
-        "key": "bsrnn_adams",
-        "label": "BSRNN AdaMS",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_192/bsrnn_adams.wav",
-        "spectrogram": "assets/spectrograms/fileid_192/bsrnn_adams.png",
-        "source": "fileid_192.wav"
-      },
-      {
-        "key": "lisennet_original",
-        "label": "LiSenNet Original",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_192/lisennet_original.wav",
-        "spectrogram": "assets/spectrograms/fileid_192/lisennet_original.png",
-        "source": "fileid_192.wav"
-      },
-      {
-        "key": "lisennet_adams",
-        "label": "LiSenNet AdaMS",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_192/lisennet_adams.wav",
-        "spectrogram": "assets/spectrograms/fileid_192/lisennet_adams.png",
         "source": "fileid_192.wav"
       }
     ]
