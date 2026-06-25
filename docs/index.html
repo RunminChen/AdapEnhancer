@@ -304,6 +304,13 @@
       letter-spacing: 0;
     }
 
+    .sample-copy {
+      margin: 3px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 650;
+    }
+
     .sample-meta {
       display: flex;
       flex-wrap: wrap;
@@ -319,6 +326,34 @@
       padding: 5px 8px;
       background: #eef1f5;
       border: 1px solid var(--line);
+    }
+
+    .sample-analysis {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 12px 18px;
+      border-bottom: 1px solid var(--line);
+      background: #fff;
+    }
+
+    .metric-strip {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 8px;
+    }
+
+    .metric-chip {
+      border: 1px solid rgba(17, 123, 112, 0.2);
+      background: var(--teal-soft);
+      color: var(--teal);
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 850;
+      padding: 5px 8px;
+      white-space: nowrap;
     }
 
     .reference-grid,
@@ -424,12 +459,46 @@
       border-color: rgba(148, 100, 15, 0.24);
     }
 
-    .track img {
+    .spectrogram {
+      position: relative;
+      overflow: hidden;
+      background: #111;
+    }
+
+    .spectrogram img {
       display: block;
       width: 100%;
       aspect-ratio: 2.26 / 1;
       object-fit: cover;
       background: #111;
+    }
+
+    .focus-box {
+      position: absolute;
+      border: 2px solid rgba(255, 255, 255, 0.94);
+      border-radius: 6px;
+      box-shadow: 0 0 0 2px rgba(200, 67, 53, 0.88), 0 8px 22px rgba(0, 0, 0, 0.28);
+      min-width: 38px;
+      min-height: 26px;
+      pointer-events: none;
+    }
+
+    .focus-box.after {
+      box-shadow: 0 0 0 2px rgba(17, 123, 112, 0.9), 0 8px 22px rgba(0, 0, 0, 0.28);
+    }
+
+    .focus-box span {
+      position: absolute;
+      left: -2px;
+      top: -25px;
+      border-radius: 6px 6px 0 0;
+      background: rgba(21, 24, 31, 0.88);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 850;
+      line-height: 1;
+      padding: 6px 8px;
+      white-space: nowrap;
     }
 
     .player {
@@ -465,7 +534,8 @@
       }
 
       .section-head,
-      .sample-header {
+      .sample-header,
+      .sample-analysis {
         align-items: flex-start;
         flex-direction: column;
       }
@@ -475,6 +545,10 @@
       }
 
       .sample-meta {
+        justify-content: flex-start;
+      }
+
+      .metric-strip {
         justify-content: flex-start;
       }
     }
@@ -563,7 +637,7 @@
     <section>
       <div class="section-head">
         <h2>DNS2020 Listening Demo</h2>
-        <p class="note">Noisy, AdapEnhancer-B, clean reference, and the FastEnhancer-B Original/AdaMS pair are shown for each sample.</p>
+        <p class="note">Curated DNS2020 cases with playable tracks and matched before/after spectrogram focus regions.</p>
       </div>
       <div class="demo-shell">
         <div id="sample-tabs" class="sample-tabs"></div>
@@ -577,13 +651,7 @@
   </main>
 
   <script>
-    const samples = [
-      { id: "fileid_5", noise: "Breath noise", snr: "3 dB" },
-      { id: "fileid_38", noise: "Baby cry", snr: "12 dB" },
-      { id: "fileid_88", noise: "Traffic", snr: "11 dB" },
-      { id: "fileid_161", noise: "Babble", snr: "8 dB" },
-      { id: "fileid_192", noise: "Vacuum cleaner", snr: "1 dB" }
-    ];
+    let samples = [];
 
     const referenceTracks = [
       { key: "noisy", label: "Noisy", tag: "Input", className: "" },
@@ -599,7 +667,47 @@
     const root = document.getElementById("demo-root");
     const sampleTabs = document.getElementById("sample-tabs");
 
+    function formatMetric(value, digits = 2) {
+      return Number.isFinite(Number(value)) ? Number(value).toFixed(digits) : "-";
+    }
+
+    function metricChips(sample) {
+      const noisy = sample.metrics?.noisy || {};
+      const enhanced = sample.metrics?.adapenhancer_b || {};
+      return `
+        <div class="metric-strip">
+          <span class="metric-chip">PESQ ${formatMetric(noisy.pesq)} -> ${formatMetric(enhanced.pesq)}</span>
+          <span class="metric-chip">OVL ${formatMetric(noisy.dnsmos_ovl)} -> ${formatMetric(enhanced.dnsmos_ovl)}</span>
+          <span class="metric-chip">ESTOI ${formatMetric(enhanced.estoi, 3)}</span>
+        </div>
+      `;
+    }
+
+    function conditionFor(sample, key) {
+      return sample.conditions?.find((condition) => condition.key === key) || {};
+    }
+
+    function focusMarkup(sample, track) {
+      if (!sample.focus || !["noisy", "adapenhancer_b"].includes(track.key)) {
+        return "";
+      }
+      const label = track.key === "noisy" ? "Before" : "After";
+      const kind = track.key === "noisy" ? "before" : "after";
+      const f = sample.focus;
+      return `
+        <div
+          class="focus-box ${kind}"
+          style="left: ${f.left}%; top: ${f.top}%; width: ${f.width}%; height: ${f.height}%;"
+        >
+          <span>${label}</span>
+        </div>
+      `;
+    }
+
     function createTrackCard(sample, track) {
+      const condition = conditionFor(sample, track.key);
+      const spectrogram = condition.spectrogram || `assets/spectrograms/${sample.id}/${track.key}.png`;
+      const audio = condition.audio || `assets/audio/${sample.id}/${track.key}.wav`;
       const card = document.createElement("div");
       card.className = `track ${track.className}`.trim();
       card.innerHTML = `
@@ -607,13 +715,16 @@
           <span class="track-name">${track.label}</span>
           <span class="track-tag">${track.tag}</span>
         </div>
-        <img
-          src="assets/spectrograms/${sample.id}/${track.key}.png"
-          alt="${sample.id} ${track.label} spectrogram"
-          loading="lazy"
-        />
+        <div class="spectrogram">
+          <img
+            src="${spectrogram}"
+            alt="${sample.id} ${track.label} spectrogram"
+            loading="lazy"
+          />
+          ${focusMarkup(sample, track)}
+        </div>
         <div class="player">
-          <audio controls preload="none" src="assets/audio/${sample.id}/${track.key}.wav">
+          <audio controls preload="none" src="${audio}">
             Your browser does not support the audio element.
           </audio>
         </div>
@@ -631,11 +742,18 @@
       article.className = "sample";
       article.innerHTML = `
         <div class="sample-header">
-          <h3 class="sample-title">${sample.id}</h3>
+          <div>
+            <h3 class="sample-title">${sample.id}</h3>
+            <p class="sample-copy">${sample.label}</p>
+          </div>
           <div class="sample-meta">
             <span class="pill">${sample.noise}</span>
             <span class="pill">SNR ${sample.snr}</span>
           </div>
+        </div>
+        <div class="sample-analysis">
+          <p class="sample-copy">The highlighted patch marks the same time-frequency region before and after enhancement.</p>
+          ${metricChips(sample)}
         </div>
         <div class="reference-grid"></div>
         <div class="comparison-panel">
@@ -655,16 +773,31 @@
       root.replaceChildren(article);
     }
 
-    samples.forEach((sample, index) => {
-      const button = document.createElement("button");
-      button.type = "button";
-      button.className = "sample-button";
-      button.innerHTML = `${sample.id}<br><span>${sample.noise}, SNR ${sample.snr}</span>`;
-      button.addEventListener("click", () => renderSample(index));
-      sampleTabs.appendChild(button);
-    });
+    async function initDemo() {
+      try {
+        const response = await fetch("assets/demo_manifest.json", { cache: "no-cache" });
+        if (!response.ok) {
+          throw new Error(`Manifest request failed: ${response.status}`);
+        }
+        samples = await response.json();
+      } catch (error) {
+        root.innerHTML = `<div class="sample-header"><p class="note">Demo manifest could not be loaded.</p></div>`;
+        return;
+      }
 
-    renderSample(0);
+      samples.forEach((sample, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "sample-button";
+        button.innerHTML = `${sample.id}<br><span>${sample.noise}, SNR ${sample.snr}</span>`;
+        button.addEventListener("click", () => renderSample(index));
+        sampleTabs.appendChild(button);
+      });
+
+      renderSample(0);
+    }
+
+    initDemo();
   </script>
 </body>
 </html>

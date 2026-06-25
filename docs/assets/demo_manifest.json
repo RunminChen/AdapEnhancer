@@ -1,123 +1,334 @@
 [
   {
-    "id": "fileid_5",
-    "noise": "Breath noise",
-    "snr": "3 dB",
-    "conditions": [
-      {
-        "key": "adapenhancer_b",
-        "label": "AdapEnhancer-B",
-        "group": "Proposed",
-        "audio": "assets/audio/fileid_5/adapenhancer_b.wav",
-        "spectrogram": "assets/spectrograms/fileid_5/adapenhancer_b.png",
-        "source": "fileid_5.wav"
+    "id": "fileid_44",
+    "noise": "Birds",
+    "label": "Bird calls, low SNR",
+    "snr": "2 dB",
+    "focus": {
+      "left": 58.4,
+      "top": 59.0,
+      "width": 18.0,
+      "height": 25.0
+    },
+    "metrics": {
+      "noisy": {
+        "pesq": 1.21,
+        "stoi": 0.887,
+        "dnsmos_ovl": 2.56
       },
+      "adapenhancer_b": {
+        "pesq": 3.3,
+        "estoi": 0.933,
+        "dnsmos_ovl": 3.37
+      },
+      "fastenhancer_b_original": {
+        "pesq": 3.15,
+        "estoi": 0.926,
+        "dnsmos_ovl": 3.43
+      },
+      "fastenhancer_b_adams": {
+        "pesq": 3.2,
+        "estoi": 0.93
+      }
+    },
+    "conditions": [
       {
         "key": "noisy",
         "label": "Noisy",
-        "group": "Input",
-        "audio": "assets/audio/fileid_5/noisy.wav",
-        "spectrogram": "assets/spectrograms/fileid_5/noisy.png",
-        "source": "clnsp609_breath_336530_2_snr3_tl-30_fileid_5.wav"
+        "audio": "assets/audio/fileid_44/noisy.wav",
+        "spectrogram": "assets/spectrograms/fileid_44/noisy.png",
+        "source": "clnsp17_birds_413745_3_snr2_tl-23_fileid_44.wav"
+      },
+      {
+        "key": "adapenhancer_b",
+        "label": "AdapEnhancer-B",
+        "audio": "assets/audio/fileid_44/adapenhancer_b.wav",
+        "spectrogram": "assets/spectrograms/fileid_44/adapenhancer_b.png",
+        "source": "clnsp17_birds_413745_3_snr2_tl-23_fileid_44.wav"
       },
       {
         "key": "clean",
         "label": "Clean",
-        "group": "Reference",
-        "audio": "assets/audio/fileid_5/clean.wav",
-        "spectrogram": "assets/spectrograms/fileid_5/clean.png",
-        "source": "clean_fileid_5.wav"
+        "audio": "assets/audio/fileid_44/clean.wav",
+        "spectrogram": "assets/spectrograms/fileid_44/clean.png",
+        "source": "clean_fileid_44.wav"
       },
       {
         "key": "fastenhancer_b_original",
         "label": "FastEnhancer-B Original",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_5/fastenhancer_b_original.wav",
-        "spectrogram": "assets/spectrograms/fileid_5/fastenhancer_b_original.png",
-        "source": "fileid_5.wav"
+        "audio": "assets/audio/fileid_44/fastenhancer_b_original.wav",
+        "spectrogram": "assets/spectrograms/fileid_44/fastenhancer_b_original.png",
+        "source": "clnsp17_birds_413745_3_snr2_tl-23_fileid_44.wav"
       },
       {
         "key": "fastenhancer_b_adams",
         "label": "FastEnhancer-B AdaMS",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_5/fastenhancer_b_adams.wav",
-        "spectrogram": "assets/spectrograms/fileid_5/fastenhancer_b_adams.png",
-        "source": "fileid_5.wav"
+        "audio": "assets/audio/fileid_44/fastenhancer_b_adams.wav",
+        "spectrogram": "assets/spectrograms/fileid_44/fastenhancer_b_adams.png",
+        "source": "fileid_44.wav"
       }
     ]
   },
   {
-    "id": "fileid_38",
+    "id": "fileid_110",
     "noise": "Baby cry",
-    "snr": "12 dB",
-    "conditions": [
-      {
-        "key": "adapenhancer_b",
-        "label": "AdapEnhancer-B",
-        "group": "Proposed",
-        "audio": "assets/audio/fileid_38/adapenhancer_b.wav",
-        "spectrogram": "assets/spectrograms/fileid_38/adapenhancer_b.png",
-        "source": "fileid_38.wav"
+    "label": "Baby cry interference",
+    "snr": "11 dB",
+    "focus": {
+      "left": 75.0,
+      "top": 52.7,
+      "width": 18.0,
+      "height": 25.0
+    },
+    "metrics": {
+      "noisy": {
+        "pesq": 1.41,
+        "stoi": 0.869,
+        "dnsmos_ovl": 2.49
       },
+      "adapenhancer_b": {
+        "pesq": 3.57,
+        "estoi": 0.956,
+        "dnsmos_ovl": 3.31
+      },
+      "fastenhancer_b_original": {
+        "pesq": 3.44,
+        "estoi": 0.949,
+        "dnsmos_ovl": 3.34
+      },
+      "fastenhancer_b_adams": {
+        "pesq": 3.55,
+        "estoi": 0.954
+      }
+    },
+    "conditions": [
       {
         "key": "noisy",
         "label": "Noisy",
-        "group": "Input",
-        "audio": "assets/audio/fileid_38/noisy.wav",
-        "spectrogram": "assets/spectrograms/fileid_38/noisy.png",
-        "source": "clnsp528_baby_416669_0_snr12_tl-29_fileid_38.wav"
+        "audio": "assets/audio/fileid_110/noisy.wav",
+        "spectrogram": "assets/spectrograms/fileid_110/noisy.png",
+        "source": "clnsp305_baby_416655_0_snr11_tl-30_fileid_110.wav"
+      },
+      {
+        "key": "adapenhancer_b",
+        "label": "AdapEnhancer-B",
+        "audio": "assets/audio/fileid_110/adapenhancer_b.wav",
+        "spectrogram": "assets/spectrograms/fileid_110/adapenhancer_b.png",
+        "source": "clnsp305_baby_416655_0_snr11_tl-30_fileid_110.wav"
       },
       {
         "key": "clean",
         "label": "Clean",
-        "group": "Reference",
-        "audio": "assets/audio/fileid_38/clean.wav",
-        "spectrogram": "assets/spectrograms/fileid_38/clean.png",
-        "source": "clean_fileid_38.wav"
+        "audio": "assets/audio/fileid_110/clean.wav",
+        "spectrogram": "assets/spectrograms/fileid_110/clean.png",
+        "source": "clean_fileid_110.wav"
       },
       {
         "key": "fastenhancer_b_original",
         "label": "FastEnhancer-B Original",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_38/fastenhancer_b_original.wav",
-        "spectrogram": "assets/spectrograms/fileid_38/fastenhancer_b_original.png",
-        "source": "fileid_38.wav"
+        "audio": "assets/audio/fileid_110/fastenhancer_b_original.wav",
+        "spectrogram": "assets/spectrograms/fileid_110/fastenhancer_b_original.png",
+        "source": "clnsp305_baby_416655_0_snr11_tl-30_fileid_110.wav"
       },
       {
         "key": "fastenhancer_b_adams",
         "label": "FastEnhancer-B AdaMS",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_38/fastenhancer_b_adams.wav",
-        "spectrogram": "assets/spectrograms/fileid_38/fastenhancer_b_adams.png",
-        "source": "fileid_38.wav"
+        "audio": "assets/audio/fileid_110/fastenhancer_b_adams.wav",
+        "spectrogram": "assets/spectrograms/fileid_110/fastenhancer_b_adams.png",
+        "source": "fileid_110.wav"
+      }
+    ]
+  },
+  {
+    "id": "fileid_231",
+    "noise": "Vacuum cleaner",
+    "label": "Vacuum motor noise",
+    "snr": "6 dB",
+    "focus": {
+      "left": 53.6,
+      "top": 68.0,
+      "width": 18.0,
+      "height": 25.0
+    },
+    "metrics": {
+      "noisy": {
+        "pesq": 1.27,
+        "stoi": 0.903,
+        "dnsmos_ovl": 1.22
+      },
+      "adapenhancer_b": {
+        "pesq": 2.87,
+        "estoi": 0.91,
+        "dnsmos_ovl": 3.18
+      },
+      "fastenhancer_b_original": {
+        "pesq": 2.74,
+        "estoi": 0.9,
+        "dnsmos_ovl": 3.06
+      },
+      "fastenhancer_b_adams": {
+        "pesq": 2.93,
+        "estoi": 0.913
+      }
+    },
+    "conditions": [
+      {
+        "key": "noisy",
+        "label": "Noisy",
+        "audio": "assets/audio/fileid_231/noisy.wav",
+        "spectrogram": "assets/spectrograms/fileid_231/noisy.png",
+        "source": "clnsp250_vacuum_388017_2_snr6_tl-20_fileid_231.wav"
+      },
+      {
+        "key": "adapenhancer_b",
+        "label": "AdapEnhancer-B",
+        "audio": "assets/audio/fileid_231/adapenhancer_b.wav",
+        "spectrogram": "assets/spectrograms/fileid_231/adapenhancer_b.png",
+        "source": "clnsp250_vacuum_388017_2_snr6_tl-20_fileid_231.wav"
+      },
+      {
+        "key": "clean",
+        "label": "Clean",
+        "audio": "assets/audio/fileid_231/clean.wav",
+        "spectrogram": "assets/spectrograms/fileid_231/clean.png",
+        "source": "clean_fileid_231.wav"
+      },
+      {
+        "key": "fastenhancer_b_original",
+        "label": "FastEnhancer-B Original",
+        "audio": "assets/audio/fileid_231/fastenhancer_b_original.wav",
+        "spectrogram": "assets/spectrograms/fileid_231/fastenhancer_b_original.png",
+        "source": "clnsp250_vacuum_388017_2_snr6_tl-20_fileid_231.wav"
+      },
+      {
+        "key": "fastenhancer_b_adams",
+        "label": "FastEnhancer-B AdaMS",
+        "audio": "assets/audio/fileid_231/fastenhancer_b_adams.wav",
+        "spectrogram": "assets/spectrograms/fileid_231/fastenhancer_b_adams.png",
+        "source": "fileid_231.wav"
+      }
+    ]
+  },
+  {
+    "id": "fileid_52",
+    "noise": "Barking",
+    "label": "Barking transient noise",
+    "snr": "8 dB",
+    "focus": {
+      "left": 78.4,
+      "top": 68.0,
+      "width": 18.0,
+      "height": 25.0
+    },
+    "metrics": {
+      "noisy": {
+        "pesq": 1.66,
+        "stoi": 0.934,
+        "dnsmos_ovl": 2.18
+      },
+      "adapenhancer_b": {
+        "pesq": 3.21,
+        "estoi": 0.951,
+        "dnsmos_ovl": 3.41
+      },
+      "fastenhancer_b_original": {
+        "pesq": 3.05,
+        "estoi": 0.944,
+        "dnsmos_ovl": 3.39
+      },
+      "fastenhancer_b_adams": {
+        "pesq": 3.04,
+        "estoi": 0.946
+      }
+    },
+    "conditions": [
+      {
+        "key": "noisy",
+        "label": "Noisy",
+        "audio": "assets/audio/fileid_52/noisy.wav",
+        "spectrogram": "assets/spectrograms/fileid_52/noisy.png",
+        "source": "clnsp307_barking_196127_0_snr8_tl-21_fileid_52.wav"
+      },
+      {
+        "key": "adapenhancer_b",
+        "label": "AdapEnhancer-B",
+        "audio": "assets/audio/fileid_52/adapenhancer_b.wav",
+        "spectrogram": "assets/spectrograms/fileid_52/adapenhancer_b.png",
+        "source": "clnsp307_barking_196127_0_snr8_tl-21_fileid_52.wav"
+      },
+      {
+        "key": "clean",
+        "label": "Clean",
+        "audio": "assets/audio/fileid_52/clean.wav",
+        "spectrogram": "assets/spectrograms/fileid_52/clean.png",
+        "source": "clean_fileid_52.wav"
+      },
+      {
+        "key": "fastenhancer_b_original",
+        "label": "FastEnhancer-B Original",
+        "audio": "assets/audio/fileid_52/fastenhancer_b_original.wav",
+        "spectrogram": "assets/spectrograms/fileid_52/fastenhancer_b_original.png",
+        "source": "clnsp307_barking_196127_0_snr8_tl-21_fileid_52.wav"
+      },
+      {
+        "key": "fastenhancer_b_adams",
+        "label": "FastEnhancer-B AdaMS",
+        "audio": "assets/audio/fileid_52/fastenhancer_b_adams.wav",
+        "spectrogram": "assets/spectrograms/fileid_52/fastenhancer_b_adams.png",
+        "source": "fileid_52.wav"
       }
     ]
   },
   {
     "id": "fileid_88",
     "noise": "Traffic",
+    "label": "Traffic background",
     "snr": "11 dB",
-    "conditions": [
-      {
-        "key": "adapenhancer_b",
-        "label": "AdapEnhancer-B",
-        "group": "Proposed",
-        "audio": "assets/audio/fileid_88/adapenhancer_b.wav",
-        "spectrogram": "assets/spectrograms/fileid_88/adapenhancer_b.png",
-        "source": "fileid_88.wav"
+    "focus": {
+      "left": 76.1,
+      "top": 68.0,
+      "width": 18.0,
+      "height": 25.0
+    },
+    "metrics": {
+      "noisy": {
+        "pesq": 1.28,
+        "stoi": 0.917,
+        "dnsmos_ovl": 2.56
       },
+      "adapenhancer_b": {
+        "pesq": 2.85,
+        "estoi": 0.931,
+        "dnsmos_ovl": 3.42
+      },
+      "fastenhancer_b_original": {
+        "pesq": 2.73,
+        "estoi": 0.927,
+        "dnsmos_ovl": 3.41
+      },
+      "fastenhancer_b_adams": {
+        "pesq": 2.8,
+        "estoi": 0.934
+      }
+    },
+    "conditions": [
       {
         "key": "noisy",
         "label": "Noisy",
-        "group": "Input",
         "audio": "assets/audio/fileid_88/noisy.wav",
         "spectrogram": "assets/spectrograms/fileid_88/noisy.png",
         "source": "clnsp16_traffic_248091_1_snr11_tl-22_fileid_88.wav"
       },
       {
+        "key": "adapenhancer_b",
+        "label": "AdapEnhancer-B",
+        "audio": "assets/audio/fileid_88/adapenhancer_b.wav",
+        "spectrogram": "assets/spectrograms/fileid_88/adapenhancer_b.png",
+        "source": "clnsp16_traffic_248091_1_snr11_tl-22_fileid_88.wav"
+      },
+      {
         "key": "clean",
         "label": "Clean",
-        "group": "Reference",
         "audio": "assets/audio/fileid_88/clean.wav",
         "spectrogram": "assets/spectrograms/fileid_88/clean.png",
         "source": "clean_fileid_88.wav"
@@ -125,112 +336,16 @@
       {
         "key": "fastenhancer_b_original",
         "label": "FastEnhancer-B Original",
-        "group": "Table 2",
         "audio": "assets/audio/fileid_88/fastenhancer_b_original.wav",
         "spectrogram": "assets/spectrograms/fileid_88/fastenhancer_b_original.png",
-        "source": "fileid_88.wav"
+        "source": "clnsp16_traffic_248091_1_snr11_tl-22_fileid_88.wav"
       },
       {
         "key": "fastenhancer_b_adams",
         "label": "FastEnhancer-B AdaMS",
-        "group": "Table 2",
         "audio": "assets/audio/fileid_88/fastenhancer_b_adams.wav",
         "spectrogram": "assets/spectrograms/fileid_88/fastenhancer_b_adams.png",
         "source": "fileid_88.wav"
-      }
-    ]
-  },
-  {
-    "id": "fileid_161",
-    "noise": "Babble",
-    "snr": "8 dB",
-    "conditions": [
-      {
-        "key": "adapenhancer_b",
-        "label": "AdapEnhancer-B",
-        "group": "Proposed",
-        "audio": "assets/audio/fileid_161/adapenhancer_b.wav",
-        "spectrogram": "assets/spectrograms/fileid_161/adapenhancer_b.png",
-        "source": "fileid_161.wav"
-      },
-      {
-        "key": "noisy",
-        "label": "Noisy",
-        "group": "Input",
-        "audio": "assets/audio/fileid_161/noisy.wav",
-        "spectrogram": "assets/spectrograms/fileid_161/noisy.png",
-        "source": "clnsp611_babble_188218_6_snr8_tl-33_fileid_161.wav"
-      },
-      {
-        "key": "clean",
-        "label": "Clean",
-        "group": "Reference",
-        "audio": "assets/audio/fileid_161/clean.wav",
-        "spectrogram": "assets/spectrograms/fileid_161/clean.png",
-        "source": "clean_fileid_161.wav"
-      },
-      {
-        "key": "fastenhancer_b_original",
-        "label": "FastEnhancer-B Original",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_161/fastenhancer_b_original.wav",
-        "spectrogram": "assets/spectrograms/fileid_161/fastenhancer_b_original.png",
-        "source": "fileid_161.wav"
-      },
-      {
-        "key": "fastenhancer_b_adams",
-        "label": "FastEnhancer-B AdaMS",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_161/fastenhancer_b_adams.wav",
-        "spectrogram": "assets/spectrograms/fileid_161/fastenhancer_b_adams.png",
-        "source": "fileid_161.wav"
-      }
-    ]
-  },
-  {
-    "id": "fileid_192",
-    "noise": "Vacuum cleaner",
-    "snr": "1 dB",
-    "conditions": [
-      {
-        "key": "adapenhancer_b",
-        "label": "AdapEnhancer-B",
-        "group": "Proposed",
-        "audio": "assets/audio/fileid_192/adapenhancer_b.wav",
-        "spectrogram": "assets/spectrograms/fileid_192/adapenhancer_b.png",
-        "source": "fileid_192.wav"
-      },
-      {
-        "key": "noisy",
-        "label": "Noisy",
-        "group": "Input",
-        "audio": "assets/audio/fileid_192/noisy.wav",
-        "spectrogram": "assets/spectrograms/fileid_192/noisy.png",
-        "source": "clnsp186_vacuum_353640_3_snr1_tl-27_fileid_192.wav"
-      },
-      {
-        "key": "clean",
-        "label": "Clean",
-        "group": "Reference",
-        "audio": "assets/audio/fileid_192/clean.wav",
-        "spectrogram": "assets/spectrograms/fileid_192/clean.png",
-        "source": "clean_fileid_192.wav"
-      },
-      {
-        "key": "fastenhancer_b_original",
-        "label": "FastEnhancer-B Original",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_192/fastenhancer_b_original.wav",
-        "spectrogram": "assets/spectrograms/fileid_192/fastenhancer_b_original.png",
-        "source": "fileid_192.wav"
-      },
-      {
-        "key": "fastenhancer_b_adams",
-        "label": "FastEnhancer-B AdaMS",
-        "group": "Table 2",
-        "audio": "assets/audio/fileid_192/fastenhancer_b_adams.wav",
-        "spectrogram": "assets/spectrograms/fileid_192/fastenhancer_b_adams.png",
-        "source": "fileid_192.wav"
       }
     ]
   }
