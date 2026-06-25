@@ -36,8 +36,7 @@ one FastEnhancer-B Original/AdaMS comparison pair:
 
 The table follows the VoiceBank+DEMAND metrics used in the comparison figure.
 DNSMOS denotes P.808, while SIG/BAK/OVL denote DNSMOS P.835. AdapEnhancer-B
-uses our current local 16 kHz VoiceBank validation log. Dashes denote metrics
-not available in the current local log.
+uses the local 16 kHz VoiceBank+DEMAND test evaluation from `scripts/metrics_ns.py`.
 
 | Model | Para. (K) | MACs | DNSMOS | SIG | BAK | OVL | SI-SDR | PESQ | STOI | ESTOI | WER |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
@@ -47,9 +46,9 @@ not available in the current local log.
 | FSPEN-c | 79 | 64M | 3.40 | 3.33 | 4.00 | 3.05 | 18.4 | 3.00 | 0.942 | 0.850 | 3.6 |
 | BSRNN-d | 334 | 245M | 3.44 | 3.36 | 4.00 | 3.07 | 18.9 | 3.06 | 0.942 | 0.855 | 3.4 |
 | FastEnhancer-B | 92 | 262M | 3.47 | 3.38 | 4.02 | 3.10 | 19.0 | 3.13 | 0.945 | 0.861 | 3.2 |
-| AdapEnhancer-B | 85 | 434M | -- | -- | -- | -- | -- | 3.18 | 0.946 | -- | 2.9 |
+| AdapEnhancer-B | 87.5 | 434M | 3.48 | 3.38 | 4.02 | 3.10 | 19.1 | 3.18 | 0.946 | 0.864 | 2.9 |
 
-AdapEnhancer-B best local PESQ/STOI: 3.1854 / 0.9463. The WER shown for
+AdapEnhancer-B metrics were evaluated with epoch 500. The WER shown for
 AdapEnhancer-B is 2.9.
 
 ## Demo Samples
