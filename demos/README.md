@@ -1,21 +1,44 @@
-# Demo Assets
+# DNS2020 Demo Assets
 
-This folder is reserved for public demo materials.
+The public demo uses 5 matched DNS2020 no-reverb examples. Audio and
+spectrogram files are stored in [`docs/assets/`](../docs/assets/) so they can be
+served directly by GitHub Pages.
 
-Recommended layout:
+## Samples
+
+| Sample | Noise type | Input SNR |
+|---|---|---:|
+| `fileid_5` | Breath noise | 3 dB |
+| `fileid_38` | Baby cry | 12 dB |
+| `fileid_88` | Traffic | 11 dB |
+| `fileid_161` | Babble | 8 dB |
+| `fileid_192` | Vacuum cleaner | 1 dB |
+
+## Tracks
+
+Every sample contains the following playable tracks and matching STFT
+spectrograms:
+
+| Track key | Display name |
+|---|---|
+| `adapenhancer_b` | AdapEnhancer-B |
+| `noisy` | Noisy |
+| `clean` | Clean |
+| `fastenhancer_b_original` | FastEnhancer-B Original |
+| `fastenhancer_b_adams` | FastEnhancer-B AdaMS |
+| `fspen_original` | FSPEN Original |
+| `fspen_adams` | FSPEN AdaMS |
+| `bsrnn_original` | BSRNN Original |
+| `bsrnn_adams` | BSRNN AdaMS |
+| `lisennet_original` | LiSenNet Original |
+| `lisennet_adams` | LiSenNet AdaMS |
+
+Path pattern:
 
 ```text
-demos/
-├── audio/
-│   ├── noisy/
-│   ├── enhanced/
-│   └── clean/
-└── spectrograms/
-    ├── noisy/
-    └── enhanced/
+docs/assets/audio/<sample>/<track-key>.wav
+docs/assets/spectrograms/<sample>/<track-key>.png
 ```
 
-Please avoid committing model weights, private datasets, or large generated
-archives here. Public demo audio can be added after confirming licensing and
-paper-release timing.
-
+The machine-readable listing is available at
+[`docs/assets/demo_manifest.json`](../docs/assets/demo_manifest.json).

@@ -4,8 +4,8 @@ Adaptive multi-resolution speech enhancement for compact streaming scenarios.
 
 This repository is a lightweight public demo page for AdapEnhancer. Source code,
 training scripts, and model checkpoints will be released after paper acceptance.
-For now, the repository keeps the project summary, demo placeholders, and metric
-tables used for presentation.
+The current version keeps project notes, presentation metrics, and DNS2020 audio
+demo assets for listening and spectrogram comparison.
 
 ## Highlights
 
@@ -14,28 +14,67 @@ tables used for presentation.
 - Acoustic-state residual weighting for input-dependent scale contribution.
 - Compact speech enhancement target with practical streaming constraints.
 
-## Demo Status
+## Online Demo
 
-Audio and spectrogram demos will be organized under [`demos/`](demos/). The
-current public version intentionally excludes model weights and inference code.
+The GitHub Pages demo is prepared under [`docs/`](docs/):
+
+```text
+https://runminchen.github.io/AdapEnhancer/
+```
+
+The page includes 5 DNS2020 no-reverb examples. Each example provides playable
+audio and a spectrogram for AdapEnhancer-B, noisy input, clean reference, and
+four Original/AdaMS comparison pairs:
+
+| Track | Description |
+|---|---|
+| AdapEnhancer-B | Proposed enhanced result |
+| Noisy | DNS noisy input |
+| Clean | DNS clean reference |
+| FastEnhancer-B Original | FastEnhancer-B baseline |
+| FastEnhancer-B AdaMS | FastEnhancer-B equipped with AdaMS |
+| FSPEN / BSRNN / LiSenNet Original | Original structural designs |
+| FSPEN / BSRNN / LiSenNet AdaMS | Corresponding AdaMS variants |
 
 ## VoiceBank+DEMAND Comparison
 
-The following numbers are from the current local VoiceBank+DEMAND evaluation
-summary. Higher is better for all metrics.
+FastEnhancer-B follows the VoiceBank+DEMAND comparison table. AdapEnhancer-B
+uses the current local 16 kHz VoiceBank validation log. Only shared verified
+metrics are reported here.
 
-| Model | SI-SNR | PESQ | STOI (%) | ESTOI (%) | DNSMOS SIG | DNSMOS BAK | DNSMOS OVL | P.808 |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| Noisy | 8.45 | 1.97 | 92.11 | 78.67 | 3.34 | 3.12 | 2.69 | 3.06 |
-| FSPEN | 17.68 | 2.50 | 91.87 | 81.59 | 3.24 | 4.08 | 3.00 | 3.44 |
-| BSRNN | 17.76 | 2.32 | 90.59 | 80.41 | 3.26 | 4.07 | 3.02 | 3.45 |
-| LiSenNet | 17.96 | 2.28 | 90.97 | 80.33 | 3.23 | 4.10 | 3.00 | 3.44 |
-| FastEnhancer-T | 16.99 | 2.51 | 91.66 | 81.08 | 3.19 | 4.06 | 2.95 | 3.40 |
-| FastEnhancer-S | 16.76 | 2.40 | 90.96 | 80.12 | 3.20 | 4.06 | 2.96 | 3.43 |
-| AdapEnhancer | **19.03** | **2.79** | **93.00** | **84.42** | **3.44** | **4.15** | **3.22** | **3.57** |
+| Model | Params (K) | MACs (M) | PESQ | STOI | Note |
+|---|---:|---:|---:|---:|---|
+| FastEnhancer-B | 92 | 262 | 3.13 | 0.945 | Reported VoiceBank+DEMAND baseline |
+| AdapEnhancer-B | 85 | 434 | 3.18 | 0.946 | Current log; best PESQ/STOI: 3.19 / 0.946 |
 
-> Note: the final repository name, model naming, and full reproducible scripts
-> will be updated after paper acceptance.
+## DNS2020 No-Reverb Demo Metrics
+
+The audio demo uses matched DNS2020 no-reverb test examples. The summary below
+follows the paper's matched DNS2020 no-reverb table. ESTOI is shown as a
+percentage.
+
+| Model | Structure | Params (K) | MACs (M) | SI-SDR | ESTOI (%) | PESQ | P.808 | SIG | BAK | OVL |
+|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Noisy | -- | -- | -- | -- | 81.00 | 1.58 | -- | 3.39 | 2.62 | 2.48 |
+| FastEnhancer-B | Original | 91 | 262 | 17.20 | 90.70 | 2.75 | 3.97 | 3.43 | 4.11 | 3.20 |
+| FastEnhancer-B | AdaMS | 91 | 427 | 17.50 | 91.20 | 2.78 | 4.00 | 3.47 | 4.13 | 3.24 |
+| FSPEN | Original | 82 | 64 | 16.20 | 89.20 | 2.56 | 3.86 | 3.38 | 4.09 | 3.13 |
+| FSPEN | AdaMS | 102 | 138 | 16.60 | 89.90 | 2.62 | 3.94 | 3.39 | 4.09 | 3.14 |
+| BSRNN | Original | 334 | 245 | 17.30 | 90.80 | 2.72 | 3.94 | 3.43 | 4.09 | 3.18 |
+| BSRNN | AdaMS | 336 | 608 | 17.50 | 91.10 | 2.75 | 3.97 | 3.45 | 4.11 | 3.21 |
+| LiSenNet | Original | 48 | 56 | 16.50 | 89.70 | 2.65 | 3.87 | 3.39 | 4.09 | 3.15 |
+| LiSenNet | AdaMS | 43 | 78 | 16.70 | 90.10 | 2.69 | 3.90 | 3.42 | 4.09 | 3.17 |
+| AdapEnhancer-B | Proposed | 85 | 434 | 17.60 | 91.60 | 2.88 | 3.99 | 3.46 | 4.11 | 3.22 |
+
+## Demo Samples
+
+| Sample | DNS noise type | Input SNR |
+|---|---|---:|
+| `fileid_5` | Breath noise | 3 dB |
+| `fileid_38` | Baby cry | 12 dB |
+| `fileid_88` | Traffic | 11 dB |
+| `fileid_161` | Babble | 8 dB |
+| `fileid_192` | Vacuum cleaner | 1 dB |
 
 ## Repository Layout
 
@@ -43,11 +82,12 @@ summary. Higher is better for all metrics.
 AdapEnhancer/
 ├── README.md
 ├── docs/
-│   └── index.html
+│   ├── index.html
+│   └── assets/
+│       ├── audio/
+│       └── spectrograms/
 └── demos/
-    ├── README.md
-    ├── audio/
-    └── spectrograms/
+    └── README.md
 ```
 
 ## Citation
