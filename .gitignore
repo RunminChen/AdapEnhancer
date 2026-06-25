@@ -1,0 +1,26 @@
+.DS_Store
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+*.tmp
+
+# Keep the public demo repository lightweight.
+checkpoints/
+ckpts/
+weights/
+*.pth
+*.pt
+*.ckpt
+*.onnx
+
+# Large generated media can be added selectively later.
+*.mp4
+*.mov
+*.mkv
+*.avi
+*.zip
+*.tar
+*.tar.gz
+

@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AdapEnhancer Demo</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --bg: #f7f8fb;
+      --text: #16202a;
+      --muted: #5e6b78;
+      --card: #ffffff;
+      --line: #dce3ea;
+      --accent: #2f6fdd;
+      --accent-soft: #e9f0ff;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #101419;
+        --text: #edf2f7;
+        --muted: #aeb9c5;
+        --card: #171d24;
+        --line: #2b3540;
+        --accent: #78a8ff;
+        --accent-soft: #1b2a44;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    main {
+      max-width: 1060px;
+      margin: 0 auto;
+      padding: 56px 20px 64px;
+    }
+    header {
+      margin-bottom: 34px;
+    }
+    .eyebrow {
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 13px;
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-size: 42px;
+      line-height: 1.1;
+      margin: 0 0 14px;
+      letter-spacing: 0;
+    }
+    .lead {
+      max-width: 780px;
+      color: var(--muted);
+      font-size: 18px;
+      margin: 0;
+    }
+    section {
+      margin-top: 26px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      background: var(--card);
+      border-radius: 8px;
+    }
+    h2 {
+      margin: 0 0 12px;
+      font-size: 22px;
+      letter-spacing: 0;
+    }
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 16px;
+    }
+    .chip {
+      border: 1px solid var(--line);
+      background: var(--accent-soft);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 7px 12px;
+      font-size: 14px;
+    }
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      margin-top: 14px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 820px;
+      font-size: 14px;
+    }
+    th, td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: right;
+      white-space: nowrap;
+    }
+    th:first-child, td:first-child {
+      text-align: left;
+      font-weight: 600;
+    }
+    thead th {
+      background: var(--accent-soft);
+      font-size: 13px;
+    }
+    tbody tr:last-child td { border-bottom: 0; }
+    tbody tr.ours {
+      background: var(--accent-soft);
+      font-weight: 700;
+    }
+    .muted {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div class="eyebrow">Speech Enhancement Demo</div>
+      <h1>AdapEnhancer</h1>
+      <p class="lead">
+        A compact adaptive multi-resolution speech enhancement project. This
+        public page currently hosts presentation metrics and demo placeholders;
+        source code and checkpoints will be released after paper acceptance.
+      </p>
+      <div class="chips">
+        <span class="chip">Adaptive DPM Placement</span>
+        <span class="chip">Acoustic-State Residual Weighting</span>
+        <span class="chip">Compact Streaming Enhancement</span>
+      </div>
+    </header>
+
+    <section>
+      <h2>VoiceBank+DEMAND Metrics</h2>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Model</th>
+              <th>SI-SNR</th>
+              <th>PESQ</th>
+              <th>STOI (%)</th>
+              <th>ESTOI (%)</th>
+              <th>DNSMOS SIG</th>
+              <th>DNSMOS BAK</th>
+              <th>DNSMOS OVL</th>
+              <th>P.808</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Noisy</td><td>8.45</td><td>1.97</td><td>92.11</td><td>78.67</td><td>3.34</td><td>3.12</td><td>2.69</td><td>3.06</td></tr>
+            <tr><td>FSPEN</td><td>17.68</td><td>2.50</td><td>91.87</td><td>81.59</td><td>3.24</td><td>4.08</td><td>3.00</td><td>3.44</td></tr>
+            <tr><td>BSRNN</td><td>17.76</td><td>2.32</td><td>90.59</td><td>80.41</td><td>3.26</td><td>4.07</td><td>3.02</td><td>3.45</td></tr>
+            <tr><td>LiSenNet</td><td>17.96</td><td>2.28</td><td>90.97</td><td>80.33</td><td>3.23</td><td>4.10</td><td>3.00</td><td>3.44</td></tr>
+            <tr><td>FastEnhancer-T</td><td>16.99</td><td>2.51</td><td>91.66</td><td>81.08</td><td>3.19</td><td>4.06</td><td>2.95</td><td>3.40</td></tr>
+            <tr><td>FastEnhancer-S</td><td>16.76</td><td>2.40</td><td>90.96</td><td>80.12</td><td>3.20</td><td>4.06</td><td>2.96</td><td>3.43</td></tr>
+            <tr class="ours"><td>AdapEnhancer</td><td>19.03</td><td>2.79</td><td>93.00</td><td>84.42</td><td>3.44</td><td>4.15</td><td>3.22</td><td>3.57</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="muted">
+        Metrics are shown as a public demo summary. Final reproducible scripts,
+        checkpoints, and naming will be updated after paper acceptance.
+      </p>
+    </section>
+
+    <section>
+      <h2>Demo Assets</h2>
+      <p class="muted">
+        Audio examples and spectrogram comparisons will be added after release
+        approval. The current repository intentionally excludes private data,
+        model weights, and inference source code.
+      </p>
+    </section>
+  </main>
+</body>
+</html>
