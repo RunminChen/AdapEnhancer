@@ -38,33 +38,27 @@ four Original/AdaMS comparison pairs:
 
 ## VoiceBank+DEMAND Comparison
 
-FastEnhancer-B follows the VoiceBank+DEMAND comparison table. AdapEnhancer-B
-uses the current local 16 kHz VoiceBank validation log. Only shared verified
-metrics are reported here.
+The table follows the VoiceBank+DEMAND metrics used in the comparison figure.
+DNSMOS denotes P.808, while SIG/BAK/OVL denote DNSMOS P.835. AdapEnhancer-B
+uses our current local 16 kHz VoiceBank validation log. Dashes denote metrics
+not available in the current local log.
 
-| Model | Params (K) | MACs (M) | PESQ | STOI | Note |
-|---|---:|---:|---:|---:|---|
-| FastEnhancer-B | 92 | 262 | 3.13 | 0.945 | Reported VoiceBank+DEMAND baseline |
-| AdapEnhancer-B | 85 | 434 | 3.18 | 0.946 | Current log; best PESQ/STOI: 3.19 / 0.946 |
+| Model | Para. (K) | MACs | DNSMOS | SIG | BAK | OVL | SI-SDR | PESQ | STOI | ESTOI | WER |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| GTCRN [9] | 24 | 40M | 3.43 | 3.36 | 4.02 | 3.08 | 18.8 | 2.87 | 0.940 | 0.848 | 3.6 |
+| LiSenNet-b [11] | 37 | 56M | 3.34 | 3.30 | 3.90 | 2.98 | 13.5 | 3.08 | 0.938 | 0.842 | 3.7 |
+| LiSenNet-c [11] | 37 | 56M | 3.42 | 3.34 | 4.03 | 3.07 | 18.5 | 2.98 | 0.941 | 0.851 | 3.4 |
+| FSPEN-c [10] | 79 | 64M | 3.40 | 3.33 | 4.00 | 3.05 | 18.4 | 3.00 | 0.942 | 0.850 | 3.6 |
+| BSRNN-d [12] | 334 | 245M | 3.44 | 3.36 | 4.00 | 3.07 | 18.9 | 3.06 | 0.942 | 0.855 | 3.4 |
+| FastEnhancer-T | 22 | 55M | 3.42 | 3.34 | 4.01 | 3.06 | 18.6 | 2.99 | 0.940 | 0.850 | 3.6 |
+| FastEnhancer-B | 92 | 262M | 3.47 | 3.38 | 4.02 | 3.10 | 19.0 | 3.13 | 0.945 | 0.861 | 3.2 |
+| FastEnhancer-S | 195 | 664M | 3.49 | 3.40 | 4.03 | 3.12 | 19.2 | 3.19 | 0.947 | 0.866 | 3.2 |
+| FastEnhancer-M | 492 | 2.9G | 3.48 | 3.39 | 4.02 | 3.11 | 19.4 | 3.24 | 0.950 | 0.873 | 2.8 |
+| FastEnhancer-L | 1105 | 11G | 3.53 | 3.44 | 4.04 | 3.16 | 19.6 | 3.26 | 0.952 | 0.877 | 3.1 |
+| AdapEnhancer-B | 85 | 434M | -- | -- | -- | -- | -- | 3.18 | 0.946 | -- | 2.9 |
 
-## DNS2020 No-Reverb Demo Metrics
-
-The audio demo uses matched DNS2020 no-reverb test examples. The summary below
-follows the paper's matched DNS2020 no-reverb table. ESTOI is shown as a
-percentage.
-
-| Model | Structure | Params (K) | MACs (M) | SI-SDR | ESTOI (%) | PESQ | P.808 | SIG | BAK | OVL |
-|---|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Noisy | -- | -- | -- | -- | 81.00 | 1.58 | -- | 3.39 | 2.62 | 2.48 |
-| FastEnhancer-B | Original | 91 | 262 | 17.20 | 90.70 | 2.75 | 3.97 | 3.43 | 4.11 | 3.20 |
-| FastEnhancer-B | AdaMS | 91 | 427 | 17.50 | 91.20 | 2.78 | 4.00 | 3.47 | 4.13 | 3.24 |
-| FSPEN | Original | 82 | 64 | 16.20 | 89.20 | 2.56 | 3.86 | 3.38 | 4.09 | 3.13 |
-| FSPEN | AdaMS | 102 | 138 | 16.60 | 89.90 | 2.62 | 3.94 | 3.39 | 4.09 | 3.14 |
-| BSRNN | Original | 334 | 245 | 17.30 | 90.80 | 2.72 | 3.94 | 3.43 | 4.09 | 3.18 |
-| BSRNN | AdaMS | 336 | 608 | 17.50 | 91.10 | 2.75 | 3.97 | 3.45 | 4.11 | 3.21 |
-| LiSenNet | Original | 48 | 56 | 16.50 | 89.70 | 2.65 | 3.87 | 3.39 | 4.09 | 3.15 |
-| LiSenNet | AdaMS | 43 | 78 | 16.70 | 90.10 | 2.69 | 3.90 | 3.42 | 4.09 | 3.17 |
-| AdapEnhancer-B | Proposed | 85 | 434 | 17.60 | 91.60 | 2.88 | 3.99 | 3.46 | 4.11 | 3.22 |
+AdapEnhancer-B best local PESQ/STOI: 3.1854 / 0.9463. The WER shown for
+AdapEnhancer-B is 2.9.
 
 ## Demo Samples
 
