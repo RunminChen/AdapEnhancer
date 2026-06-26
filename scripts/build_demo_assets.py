@@ -25,9 +25,9 @@ DNS_ROOT = Path("/home/cmw/Crm/data/dns2020_raw/datasets/test_set/synthetic/no_r
 TABLE2_WAVS = FASTENHANCER / "eval_outputs/table2_demo_wavs"
 
 SELECTED = [
-    {"id": "fileid_5", "noise": "Breath", "label": "Breathing noise"},
     {"id": "fileid_161", "noise": "Babble", "label": "Babble speech noise"},
     {"id": "fileid_192", "noise": "Vacuum cleaner", "label": "Vacuum motor noise"},
+    {"id": "fileid_5", "noise": "Breath", "label": "Breathing noise"},
 ]
 
 TRACK_LABELS = {
@@ -135,21 +135,28 @@ def spectrogram_db(path: Path) -> tuple[int, np.ndarray, np.ndarray, np.ndarray]
     return sr, times, freqs, db
 
 
-def focus_box(origin_path: Path, adams_path: Path, clean_path: Path) -> dict[str, float]:
-    sr, times, freqs, origin_db = spectrogram_db(origin_path)
-    _, _, _, adams_db = spectrogram_db(adams_path)
+def focus_box(paths: dict[str, Path], clean_path: Path) -> dict[str, float]:
     _, _, _, clean_db = spectrogram_db(clean_path)
-    rows = min(origin_db.shape[0], adams_db.shape[0], clean_db.shape[0])
-    cols = min(origin_db.shape[1], adams_db.shape[1], clean_db.shape[1])
-    origin_db = origin_db[:rows, :cols]
-    adams_db = adams_db[:rows, :cols]
+    specs = []
+    for _group_id, _label, origin_key, adams_key in PAIR_GROUPS:
+        sr, times, freqs, origin_db = spectrogram_db(paths[origin_key])
+        _, _, _, adams_db = spectrogram_db(paths[adams_key])
+        specs.append((origin_db, adams_db))
+
+    rows = min([clean_db.shape[0], *[min(o.shape[0], a.shape[0]) for o, a in specs]])
+    cols = min([clean_db.shape[1], *[min(o.shape[1], a.shape[1]) for o, a in specs]])
     clean_db = clean_db[:rows, :cols]
     freqs = freqs[:rows]
     times = times[:cols]
 
-    origin_error = np.abs(origin_db - clean_db)
-    adams_error = np.abs(adams_db - clean_db)
-    improvement = np.maximum(origin_error - adams_error, 0)
+    improvements = []
+    for origin_db, adams_db in specs:
+        origin_db = origin_db[:rows, :cols]
+        adams_db = adams_db[:rows, :cols]
+        origin_error = np.abs(origin_db - clean_db)
+        adams_error = np.abs(adams_db - clean_db)
+        improvements.append(np.maximum(origin_error - adams_error, 0))
+    improvement = np.mean(improvements, axis=0)
 
     band = (freqs >= 900) & (freqs <= min(sr / 2, 7600))
     if not np.any(band):
@@ -203,31 +210,30 @@ def focus_box(origin_path: Path, adams_path: Path, clean_path: Path) -> dict[str
     height = 100 * max(freqs[f1] - freqs[f0], top_freq * 0.24) / top_freq
     top = 100 - bottom - height
 
+    width = float(np.clip(width, 20, 34))
+    height = float(np.clip(height, 22, 38))
+    left = float(np.clip(left, 5, 95 - width))
+    top = float(np.clip(top, 6, 94 - height))
+
     return {
-        "left": round(float(np.clip(left, 5, 76)), 1),
-        "top": round(float(np.clip(top, 6, 66)), 1),
-        "width": round(float(np.clip(width, 20, 40)), 1),
-        "height": round(float(np.clip(height, 22, 42)), 1),
+        "left": round(left, 1),
+        "top": round(top, 1),
+        "width": round(width, 1),
+        "height": round(height, 1),
     }
 
 
 def plot_spectrogram(src: Path, dst: Path, title: str) -> None:
     _sr, times, freqs, db = spectrogram_db(src)
-    fig, ax = plt.subplots(figsize=(7.0, 3.1), dpi=150)
-    fig.patch.set_facecolor("#ffffff")
+    fig, ax = plt.subplots(figsize=(7.0, 3.0), dpi=150)
+    fig.patch.set_facecolor("#111318")
     ax.set_facecolor("#111318")
     extent = [times[0], times[-1], freqs[0] / 1000, freqs[-1] / 1000]
     ax.imshow(db, origin="lower", aspect="auto", extent=extent, cmap="magma")
-    ax.set_title(title, fontsize=11, fontweight="bold", pad=6)
-    ax.set_xlabel("Time (s)", fontsize=9)
-    ax.set_ylabel("Frequency (kHz)", fontsize=9)
-    ax.tick_params(axis="both", labelsize=8, length=2)
-    for spine in ax.spines.values():
-        spine.set_linewidth(0.8)
-        spine.set_color("#d6dbe4")
-    fig.tight_layout(pad=0.8)
+    ax.set_axis_off()
+    fig.subplots_adjust(left=0, right=1, bottom=0, top=1)
     dst.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(dst, bbox_inches="tight")
+    fig.savefig(dst, bbox_inches="tight", pad_inches=0)
     plt.close(fig)
 
 
@@ -347,13 +353,14 @@ def main() -> None:
             "comparison_groups": [],
         }
 
+        shared_focus = focus_box(paths, paths["clean"])
         for group_id, label, origin_key, adams_key in PAIR_GROUPS:
             sample["comparison_groups"].append(
                 {
                     "id": group_id,
                     "label": label,
                     "subtitle": "Original vs AdaMS",
-                    "focus": focus_box(paths[origin_key], paths[adams_key], paths["clean"]),
+                    "focus": shared_focus,
                     "tracks": [
                         {
                             "key": origin_key,

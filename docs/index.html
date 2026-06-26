@@ -500,8 +500,8 @@
     .spectrogram img {
       display: block;
       width: 100%;
-      aspect-ratio: 2.26 / 1;
-      object-fit: cover;
+      aspect-ratio: 7 / 3;
+      object-fit: fill;
       background: #111;
     }
 
@@ -770,7 +770,7 @@
       const pairTitle = article.querySelector(".pair-title");
       const pairNote = article.querySelector(".pair-note");
       if (pairTitle) pairTitle.textContent = `${group.label}: ${group.subtitle || "Origin vs AdaMS"}`;
-      if (pairNote) pairNote.textContent = "Red and green boxes mark the same time-frequency region for a direct visual comparison.";
+      if (pairNote) pairNote.textContent = "All algorithms use the same boxed region for this sample; red is Origin and green is AdaMS.";
 
       const pairGrid = article.querySelector(".pair-grid");
       const cards = (group.tracks || []).map((track) => {

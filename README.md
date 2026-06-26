@@ -57,9 +57,9 @@ AdapEnhancer-B is 2.9.
 
 | Sample | DNS noise type | Input SNR |
 |---|---|---:|
-| `fileid_5` | Breath | 3 dB |
 | `fileid_161` | Babble | 8 dB |
 | `fileid_192` | Vacuum cleaner | 1 dB |
+| `fileid_5` | Breath | 3 dB |
 
 ## Repository Layout
 
