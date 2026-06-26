@@ -374,6 +374,27 @@
       background: #fbfcfd;
     }
 
+    .group-title {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px 0;
+    }
+
+    .group-title h4 {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.2;
+    }
+
+    .group-title p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 650;
+    }
+
     .pair-toolbar {
       display: flex;
       flex-wrap: wrap;
@@ -431,6 +452,17 @@
       font-size: 14px;
     }
 
+    .track-metrics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 760;
+      line-height: 1.1;
+    }
+
     .track-tag {
       border-radius: 8px;
       padding: 3px 7px;
@@ -475,30 +507,16 @@
 
     .focus-box {
       position: absolute;
-      border: 2px solid rgba(255, 255, 255, 0.94);
-      border-radius: 6px;
-      box-shadow: 0 0 0 2px rgba(200, 67, 53, 0.88), 0 8px 22px rgba(0, 0, 0, 0.28);
+      border: 2px solid rgba(200, 67, 53, 0.95);
+      border-radius: 4px;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.88);
       min-width: 38px;
       min-height: 26px;
       pointer-events: none;
     }
 
-    .focus-box.after {
-      box-shadow: 0 0 0 2px rgba(17, 123, 112, 0.9), 0 8px 22px rgba(0, 0, 0, 0.28);
-    }
-
-    .focus-box span {
-      position: absolute;
-      left: -2px;
-      top: -25px;
-      border-radius: 6px 6px 0 0;
-      background: rgba(21, 24, 31, 0.88);
-      color: #fff;
-      font-size: 11px;
-      font-weight: 850;
-      line-height: 1;
-      padding: 6px 8px;
-      white-space: nowrap;
+    .focus-box.adams {
+      border-color: rgba(17, 123, 112, 0.95);
     }
 
     .player {
@@ -637,7 +655,7 @@
     <section>
       <div class="section-head">
         <h2>DNS2020 Listening Demo</h2>
-        <p class="note">Curated DNS2020 cases with playable tracks and matched before/after spectrogram focus regions.</p>
+        <p class="note">Curated DNS2020 cases with playable tracks, comparison algorithms, and matched Origin/AdaMS spectrogram focus boxes.</p>
       </div>
       <div class="demo-shell">
         <div id="sample-tabs" class="sample-tabs"></div>
@@ -657,11 +675,6 @@
       { key: "noisy", label: "Noisy", tag: "Input", className: "" },
       { key: "adapenhancer_b", label: "AdapEnhancer-B", tag: "Proposed", className: "primary" },
       { key: "clean", label: "Clean", tag: "Reference", className: "clean" }
-    ];
-
-    const comparisonTracks = [
-      { key: "fastenhancer_b_original", label: "FastEnhancer-B Original", tag: "Original", className: "" },
-      { key: "fastenhancer_b_adams", label: "FastEnhancer-B AdaMS", tag: "AdaMS", className: "adams" }
     ];
 
     const root = document.getElementById("demo-root");
@@ -687,41 +700,52 @@
       return sample.conditions?.find((condition) => condition.key === key) || {};
     }
 
-    function focusMarkup(sample, track) {
-      if (!sample.focus || !["noisy", "adapenhancer_b"].includes(track.key)) {
+    function miniMetrics(condition) {
+      const metrics = condition.metrics || {};
+      const parts = [];
+      if (metrics.pesq !== undefined) parts.push(`PESQ ${formatMetric(metrics.pesq)}`);
+      if (metrics.dnsmos_ovl !== undefined) parts.push(`OVL ${formatMetric(metrics.dnsmos_ovl)}`);
+      if (metrics.estoi !== undefined) parts.push(`ESTOI ${formatMetric(metrics.estoi, 3)}`);
+      if (metrics.stoi !== undefined && metrics.estoi === undefined) parts.push(`STOI ${formatMetric(metrics.stoi, 3)}`);
+      if (!parts.length) return "";
+      return `<div class="track-metrics">${parts.map((part) => `<span>${part}</span>`).join("")}</div>`;
+    }
+
+    function focusMarkup(focus, role) {
+      if (!focus) {
         return "";
       }
-      const label = track.key === "noisy" ? "Before" : "After";
-      const kind = track.key === "noisy" ? "before" : "after";
-      const f = sample.focus;
       return `
         <div
-          class="focus-box ${kind}"
-          style="left: ${f.left}%; top: ${f.top}%; width: ${f.width}%; height: ${f.height}%;"
-        >
-          <span>${label}</span>
-        </div>
+          class="focus-box ${role || ""}"
+          style="left: ${focus.left}%; top: ${focus.top}%; width: ${focus.width}%; height: ${focus.height}%;"
+        ></div>
       `;
     }
 
-    function createTrackCard(sample, track) {
+    function createTrackCard(sample, track, focus = null) {
       const condition = conditionFor(sample, track.key);
       const spectrogram = condition.spectrogram || `assets/spectrograms/${sample.id}/${track.key}.png`;
       const audio = condition.audio || `assets/audio/${sample.id}/${track.key}.wav`;
+      const label = track.label || condition.label || track.key;
+      const tag = track.tag || "Audio";
       const card = document.createElement("div");
       card.className = `track ${track.className}`.trim();
       card.innerHTML = `
         <div class="track-head">
-          <span class="track-name">${track.label}</span>
-          <span class="track-tag">${track.tag}</span>
+          <div>
+            <div class="track-name">${label}</div>
+            ${miniMetrics(condition)}
+          </div>
+          <span class="track-tag">${tag}</span>
         </div>
         <div class="spectrogram">
           <img
             src="${spectrogram}"
-            alt="${sample.id} ${track.label} spectrogram"
+            alt="${sample.id} ${label} spectrogram"
             loading="lazy"
           />
-          ${focusMarkup(sample, track)}
+          ${focusMarkup(focus, track.role)}
         </div>
         <div class="player">
           <audio controls preload="none" src="${audio}">
@@ -730,6 +754,27 @@
         </div>
       `;
       return card;
+    }
+
+    function renderPairGroup(article, sample, groupIndex) {
+      const groups = sample.comparison_groups || [];
+      const group = groups[groupIndex] || groups[0];
+      if (!group) return;
+
+      const buttons = [...article.querySelectorAll(".pair-button")];
+      buttons.forEach((button, index) => button.classList.toggle("active", index === groupIndex));
+
+      const pairTitle = article.querySelector(".pair-title");
+      const pairNote = article.querySelector(".pair-note");
+      if (pairTitle) pairTitle.textContent = `${group.label}: ${group.subtitle || "Origin vs AdaMS"}`;
+      if (pairNote) pairNote.textContent = "Red and green boxes mark the same time-frequency region for a direct visual comparison.";
+
+      const pairGrid = article.querySelector(".pair-grid");
+      const cards = (group.tracks || []).map((track) => {
+        const className = track.role === "adams" ? "adams" : "";
+        return createTrackCard(sample, { ...track, className }, group.focus);
+      });
+      pairGrid.replaceChildren(...cards);
     }
 
     function renderSample(activeSampleIndex) {
@@ -752,13 +797,20 @@
           </div>
         </div>
         <div class="sample-analysis">
-          <p class="sample-copy">The highlighted patch marks the same time-frequency region before and after enhancement.</p>
+          <p class="sample-copy">Use the reference players for context, then switch among algorithm-specific Origin/AdaMS pairs.</p>
           ${metricChips(sample)}
+        </div>
+        <div class="group-title">
+          <h4>Core listening triplet</h4>
+          <p>Noisy input, proposed output, and clean reference</p>
         </div>
         <div class="reference-grid"></div>
         <div class="comparison-panel">
+          <div class="group-title" style="padding: 0 0 12px;">
+            <h4 class="pair-title">Origin vs AdaMS</h4>
+            <p class="pair-note"></p>
+          </div>
           <div class="pair-toolbar">
-            <span class="pair-button active">FastEnhancer-B Comparison</span>
           </div>
           <div class="pair-grid"></div>
         </div>
@@ -767,8 +819,19 @@
       const referenceGrid = article.querySelector(".reference-grid");
       referenceGrid.replaceChildren(...referenceTracks.map((track) => createTrackCard(sample, track)));
 
-      const pairGrid = article.querySelector(".pair-grid");
-      pairGrid.replaceChildren(...comparisonTracks.map((track) => createTrackCard(sample, track)));
+      const toolbar = article.querySelector(".pair-toolbar");
+      const groups = sample.comparison_groups || [];
+      toolbar.replaceChildren(
+        ...groups.map((group, index) => {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "pair-button";
+          button.textContent = `${group.label} ${group.subtitle || ""}`.trim();
+          button.addEventListener("click", () => renderPairGroup(article, sample, index));
+          return button;
+        })
+      );
+      renderPairGroup(article, sample, 0);
 
       root.replaceChildren(article);
     }

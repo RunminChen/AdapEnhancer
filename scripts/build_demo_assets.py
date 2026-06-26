@@ -22,22 +22,42 @@ from scipy.signal import stft
 REPO = Path(__file__).resolve().parents[1]
 FASTENHANCER = Path("/home/cmw/Crm/fastenhancer")
 DNS_ROOT = Path("/home/cmw/Crm/data/dns2020_raw/datasets/test_set/synthetic/no_reverb")
+TABLE2_WAVS = FASTENHANCER / "eval_outputs/table2_demo_wavs"
 
 SELECTED = [
-    {"id": "fileid_44", "noise": "Birds", "label": "Bird calls, low SNR"},
-    {"id": "fileid_110", "noise": "Baby cry", "label": "Baby cry interference"},
-    {"id": "fileid_231", "noise": "Vacuum cleaner", "label": "Vacuum motor noise"},
-    {"id": "fileid_52", "noise": "Barking", "label": "Barking transient noise"},
+    {"id": "fileid_5", "noise": "Breath", "label": "Breathing noise"},
+    {"id": "fileid_38", "noise": "Baby cry", "label": "Baby cry interference"},
     {"id": "fileid_88", "noise": "Traffic", "label": "Traffic background"},
+    {"id": "fileid_161", "noise": "Babble", "label": "Babble speech noise"},
+    {"id": "fileid_192", "noise": "Vacuum cleaner", "label": "Vacuum motor noise"},
 ]
 
-TRACKS = {
+TRACK_LABELS = {
     "noisy": "Noisy",
     "adapenhancer_b": "AdapEnhancer-B",
     "clean": "Clean",
-    "fastenhancer_b_original": "FastEnhancer-B Original",
+    "fastenhancer_b_original": "FastEnhancer-B",
     "fastenhancer_b_adams": "FastEnhancer-B AdaMS",
+    "bsrnn_original": "BSRNN",
+    "bsrnn_adams": "BSRNN AdaMS",
+    "fspen_original": "FSPEN",
+    "fspen_adams": "FSPEN AdaMS",
+    "lisennet_original": "LiSenNet",
+    "lisennet_adams": "LiSenNet AdaMS",
 }
+
+REFERENCE_KEYS = ["noisy", "adapenhancer_b", "clean"]
+PAIR_GROUPS = [
+    ("bsrnn", "BSRNN", "bsrnn_original", "bsrnn_adams"),
+    ("fspen", "FSPEN", "fspen_original", "fspen_adams"),
+    ("lisennet", "LiSenNet", "lisennet_original", "lisennet_adams"),
+    (
+        "fastenhancer_b_adams",
+        "FastEnhancer-B",
+        "fastenhancer_b_original",
+        "fastenhancer_b_adams",
+    ),
+]
 
 
 def read_csv_by_fileid(
@@ -52,7 +72,13 @@ def read_csv_by_fileid(
                 continue
             if testset is not None and row.get("testset") != testset:
                 continue
-            filename = row.get("filename") or row.get("Filename") or row.get("Clean_Filename") or ""
+            filename = (
+                row.get("file_id")
+                or row.get("filename")
+                or row.get("Filename")
+                or row.get("Clean_Filename")
+                or ""
+            )
             match = re.search(r"fileid_(\d+)", filename)
             if not match:
                 continue
@@ -111,23 +137,24 @@ def spectrogram_db(path: Path) -> tuple[int, np.ndarray, np.ndarray, np.ndarray]
     return sr, times, freqs, db
 
 
-def focus_box(noisy_path: Path, enhanced_path: Path) -> dict[str, float]:
-    sr, times, freqs, noisy_db = spectrogram_db(noisy_path)
-    _, _, _, enhanced_db = spectrogram_db(enhanced_path)
-    rows = min(noisy_db.shape[0], enhanced_db.shape[0])
-    cols = min(noisy_db.shape[1], enhanced_db.shape[1])
-    noisy_db = noisy_db[:rows, :cols]
-    enhanced_db = enhanced_db[:rows, :cols]
+def focus_box(origin_path: Path, adams_path: Path) -> dict[str, float]:
+    sr, times, freqs, origin_db = spectrogram_db(origin_path)
+    _, _, _, adams_db = spectrogram_db(adams_path)
+    rows = min(origin_db.shape[0], adams_db.shape[0])
+    cols = min(origin_db.shape[1], adams_db.shape[1])
+    origin_db = origin_db[:rows, :cols]
+    adams_db = adams_db[:rows, :cols]
     freqs = freqs[:rows]
     times = times[:cols]
 
-    diff = np.maximum(noisy_db - enhanced_db, 0)
+    diff = np.abs(origin_db - adams_db)
     band = (freqs >= 900) & (freqs <= min(sr / 2, 7600))
     if not np.any(band):
         band = np.ones_like(freqs, dtype=bool)
     energy_t = diff[band].mean(axis=0)
 
-    win_t = max(8, min(cols, int(round(0.9 / max(times[1] - times[0], 1e-3)))))
+    frame_step = max(times[1] - times[0], 1e-3) if len(times) > 1 else 1e-3
+    win_t = max(8, min(cols, int(round(0.9 / frame_step))))
     kernel = np.ones(win_t) / win_t
     smooth_t = np.convolve(energy_t, kernel, mode="same")
     center_t = int(np.argmax(smooth_t))
@@ -159,8 +186,8 @@ def focus_box(noisy_path: Path, enhanced_path: Path) -> dict[str, float]:
     }
 
 
-def plot_spectrogram(src: Path, dst: Path, title: str, highlight: dict[str, float] | None) -> None:
-    sr, times, freqs, db = spectrogram_db(src)
+def plot_spectrogram(src: Path, dst: Path, title: str) -> None:
+    _sr, times, freqs, db = spectrogram_db(src)
     fig, ax = plt.subplots(figsize=(7.0, 3.1), dpi=150)
     fig.patch.set_facecolor("#ffffff")
     ax.set_facecolor("#111318")
@@ -191,19 +218,68 @@ def find_by_suffix(directory: Path, fid: str) -> Path:
     return matches[0]
 
 
+def metric_float(row: dict[str, str] | None, key: str) -> float | None:
+    if not row or row.get(key) in {None, ""}:
+        return None
+    return float(row[key])
+
+
+def metrics_from_row(row: dict[str, str] | None) -> dict[str, float]:
+    metrics = {}
+    for src_key, dst_key, digits in [
+        ("pesq", "pesq", 2),
+        ("estoi", "estoi", 3),
+        ("sisdr", "sisdr", 1),
+        ("dnsmos_p808", "dnsmos", 2),
+        ("dnsmos_ovr", "dnsmos_ovl", 2),
+    ]:
+        value = metric_float(row, src_key)
+        if value is not None:
+            metrics[dst_key] = round(value, digits)
+    return metrics
+
+
+def add_condition(
+    sample: dict[str, object],
+    key: str,
+    src: Path,
+    audio_root: Path,
+    spec_root: Path,
+    metrics: dict[str, float] | None = None,
+) -> None:
+    fid = str(sample["id"])
+    wav_dst = audio_root / fid / f"{key}.wav"
+    png_dst = spec_root / fid / f"{key}.png"
+    copy_audio(src, wav_dst)
+    plot_spectrogram(src, png_dst, TRACK_LABELS[key])
+    sample["conditions"].append(
+        {
+            "key": key,
+            "label": TRACK_LABELS[key],
+            "audio": str(wav_dst.relative_to(REPO / "docs")),
+            "spectrogram": str(png_dst.relative_to(REPO / "docs")),
+            "source": src.name,
+            "metrics": metrics or {},
+        }
+    )
+
+
 def main() -> None:
     noisy_rows = parse_noisy_rows()
-    adap_rows = read_csv_by_fileid(
-        FASTENHANCER / "eval_outputs/dns_main_models_nsmetric_details.csv",
-        model="AdapEnhancer",
-        testset="noreverb",
+    main_rows = {
+        model: read_csv_by_fileid(
+            FASTENHANCER / "eval_outputs/dns_main_models_nsmetric_details.csv",
+            model=model,
+            testset="noreverb",
+        )
+        for model in ["AdapEnhancer", "BSRNN", "FSPEN", "LiSenNet", "FastEnhancer-B"]
+    }
+    adams_objective_rows = read_csv_by_fileid(
+        FASTENHANCER / "eval_outputs/fastenhancer_b_adams_objective.csv"
     )
-    fast_rows = read_csv_by_fileid(
-        FASTENHANCER / "eval_outputs/dns_main_models_nsmetric_details.csv",
-        model="FastEnhancer-B",
-        testset="noreverb",
+    adams_dnsmos_rows = read_csv_by_fileid(
+        FASTENHANCER / "eval_outputs/fastenhancer_b_adams_dnsmos_details.csv"
     )
-    adams_rows = read_csv_by_fileid(FASTENHANCER / "eval_outputs/fastenhancer_b_adams_objective.csv")
 
     audio_root = REPO / "docs/assets/audio"
     spec_root = REPO / "docs/assets/spectrograms"
@@ -220,66 +296,78 @@ def main() -> None:
         noisy_meta = noisy_rows[fid]
         noisy_src = DNS_ROOT / "noisy" / str(noisy_meta["source"])
         clean_src = DNS_ROOT / "clean" / f"clean_{fid}.wav"
-        adap_src = find_by_suffix(FASTENHANCER / "adapenhancer_b_lsig_adaperb/noreverb", fid)
-        fast_src = find_by_suffix(FASTENHANCER / "fast_b/noreverb", fid)
-        adams_src = FASTENHANCER / "eval_outputs/fastenhancer_b_adams_noreverb_wavs" / f"{fid}.wav"
-
+        pair_keys = [key for _, _, origin, adams in PAIR_GROUPS for key in (origin, adams)]
         paths = {
             "noisy": noisy_src,
-            "adapenhancer_b": adap_src,
             "clean": clean_src,
-            "fastenhancer_b_original": fast_src,
-            "fastenhancer_b_adams": adams_src,
+            "adapenhancer_b": TABLE2_WAVS / "adapenhancer_b" / f"{fid}.wav",
+            **{key: TABLE2_WAVS / key / f"{fid}.wav" for key in pair_keys},
         }
-        focus = focus_box(noisy_src, adap_src)
+
+        noisy_metrics = {
+            "pesq": round(float(noisy_meta["pesq"]), 2),
+            "stoi": round(float(noisy_meta["stoi"]), 3),
+            "dnsmos_ovl": round(float(noisy_meta["ovl"]), 2),
+        }
+        adams_metrics = metrics_from_row(adams_objective_rows.get(fid))
+        adams_metrics.update(metrics_from_row(adams_dnsmos_rows.get(fid)))
+        track_metrics = {
+            "noisy": noisy_metrics,
+            "adapenhancer_b": metrics_from_row(main_rows["AdapEnhancer"].get(fid)),
+            "clean": {},
+            "fastenhancer_b_original": metrics_from_row(main_rows["FastEnhancer-B"].get(fid)),
+            "fastenhancer_b_adams": adams_metrics,
+            "bsrnn_original": metrics_from_row(main_rows["BSRNN"].get(fid)),
+            "bsrnn_adams": {},
+            "fspen_original": metrics_from_row(main_rows["FSPEN"].get(fid)),
+            "fspen_adams": {},
+            "lisennet_original": metrics_from_row(main_rows["LiSenNet"].get(fid)),
+            "lisennet_adams": {},
+        }
+
         sample = {
             "id": fid,
             "noise": item["noise"],
             "label": item["label"],
             "snr": f"{noisy_meta['snr']} dB",
-            "focus": focus,
-            "metrics": {
-                "noisy": {
-                    "pesq": round(float(noisy_meta["pesq"]), 2),
-                    "stoi": round(float(noisy_meta["stoi"]), 3),
-                    "dnsmos_ovl": round(float(noisy_meta["ovl"]), 2),
-                },
-                "adapenhancer_b": {
-                    "pesq": round(float(adap_rows[fid]["pesq"]), 2),
-                    "estoi": round(float(adap_rows[fid]["estoi"]), 3),
-                    "dnsmos_ovl": round(float(adap_rows[fid]["dnsmos_ovr"]), 2),
-                },
-                "fastenhancer_b_original": {
-                    "pesq": round(float(fast_rows[fid]["pesq"]), 2),
-                    "estoi": round(float(fast_rows[fid]["estoi"]), 3),
-                    "dnsmos_ovl": round(float(fast_rows[fid]["dnsmos_ovr"]), 2),
-                },
-                "fastenhancer_b_adams": {
-                    "pesq": round(float(adams_rows[fid]["pesq"]), 2),
-                    "estoi": round(float(adams_rows[fid]["estoi"]), 3),
-                },
-            },
+            "reference_keys": REFERENCE_KEYS,
+            "metrics": track_metrics,
             "conditions": [],
+            "comparison_groups": [],
         }
-        for key, label in TRACKS.items():
-            wav_dst = audio_root / fid / f"{key}.wav"
-            png_dst = spec_root / fid / f"{key}.png"
-            copy_audio(paths[key], wav_dst)
-            plot_spectrogram(paths[key], png_dst, label, focus if key in {"noisy", "adapenhancer_b"} else None)
-            sample["conditions"].append(
+
+        for group_id, label, origin_key, adams_key in PAIR_GROUPS:
+            sample["comparison_groups"].append(
                 {
-                    "key": key,
+                    "id": group_id,
                     "label": label,
-                    "audio": str(wav_dst.relative_to(REPO / "docs")),
-                    "spectrogram": str(png_dst.relative_to(REPO / "docs")),
-                    "source": paths[key].name,
+                    "subtitle": "Original vs AdaMS",
+                    "focus": focus_box(paths[origin_key], paths[adams_key]),
+                    "tracks": [
+                        {
+                            "key": origin_key,
+                            "label": "Original",
+                            "tag": "Origin",
+                            "role": "origin",
+                        },
+                        {
+                            "key": adams_key,
+                            "label": "AdaMS",
+                            "tag": "AdaMS",
+                            "role": "adams",
+                        },
+                    ],
                 }
             )
+
+        for key in [*REFERENCE_KEYS, *pair_keys]:
+            add_condition(sample, key, paths[key], audio_root, spec_root, track_metrics[key])
         manifest.append(sample)
 
     with (REPO / "docs/assets/demo_manifest.json").open("w") as f:
         json.dump(manifest, f, indent=2)
         f.write("\n")
+
     print("Selected samples:")
     for sample in manifest:
         n = sample["metrics"]["noisy"]
