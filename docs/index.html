@@ -700,7 +700,10 @@
       return sample.conditions?.find((condition) => condition.key === key) || {};
     }
 
-    function miniMetrics(condition) {
+    function miniMetrics(condition, track) {
+      if (track.role) {
+        return "";
+      }
       const metrics = condition.metrics || {};
       const parts = [];
       if (metrics.pesq !== undefined) parts.push(`PESQ ${formatMetric(metrics.pesq)}`);
@@ -735,7 +738,7 @@
         <div class="track-head">
           <div>
             <div class="track-name">${label}</div>
-            ${miniMetrics(condition)}
+            ${miniMetrics(condition, track)}
           </div>
           <span class="track-tag">${tag}</span>
         </div>

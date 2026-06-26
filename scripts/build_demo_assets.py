@@ -26,8 +26,6 @@ TABLE2_WAVS = FASTENHANCER / "eval_outputs/table2_demo_wavs"
 
 SELECTED = [
     {"id": "fileid_5", "noise": "Breath", "label": "Breathing noise"},
-    {"id": "fileid_38", "noise": "Baby cry", "label": "Baby cry interference"},
-    {"id": "fileid_88", "noise": "Traffic", "label": "Traffic background"},
     {"id": "fileid_161", "noise": "Babble", "label": "Babble speech noise"},
     {"id": "fileid_192", "noise": "Vacuum cleaner", "label": "Vacuum motor noise"},
 ]
@@ -137,24 +135,39 @@ def spectrogram_db(path: Path) -> tuple[int, np.ndarray, np.ndarray, np.ndarray]
     return sr, times, freqs, db
 
 
-def focus_box(origin_path: Path, adams_path: Path) -> dict[str, float]:
+def focus_box(origin_path: Path, adams_path: Path, clean_path: Path) -> dict[str, float]:
     sr, times, freqs, origin_db = spectrogram_db(origin_path)
     _, _, _, adams_db = spectrogram_db(adams_path)
-    rows = min(origin_db.shape[0], adams_db.shape[0])
-    cols = min(origin_db.shape[1], adams_db.shape[1])
+    _, _, _, clean_db = spectrogram_db(clean_path)
+    rows = min(origin_db.shape[0], adams_db.shape[0], clean_db.shape[0])
+    cols = min(origin_db.shape[1], adams_db.shape[1], clean_db.shape[1])
     origin_db = origin_db[:rows, :cols]
     adams_db = adams_db[:rows, :cols]
+    clean_db = clean_db[:rows, :cols]
     freqs = freqs[:rows]
     times = times[:cols]
 
-    diff = np.abs(origin_db - adams_db)
+    origin_error = np.abs(origin_db - clean_db)
+    adams_error = np.abs(adams_db - clean_db)
+    improvement = np.maximum(origin_error - adams_error, 0)
+
     band = (freqs >= 900) & (freqs <= min(sr / 2, 7600))
     if not np.any(band):
         band = np.ones_like(freqs, dtype=bool)
-    energy_t = diff[band].mean(axis=0)
-
+    # Prefer regions where AdaMS is closer to the clean spectrogram, while
+    # avoiding silent margins that can otherwise dominate simple differences.
+    clean_band = clean_db[band]
+    activity_floor = np.percentile(clean_band, 45)
+    activity = clean_band > activity_floor
+    weighted = improvement[band] * (0.55 + 0.45 * activity.astype(np.float32))
+    energy_t = weighted.mean(axis=0)
     frame_step = max(times[1] - times[0], 1e-3) if len(times) > 1 else 1e-3
-    win_t = max(8, min(cols, int(round(0.9 / frame_step))))
+    if cols > 8:
+        margin = max(4, int(round(0.25 / frame_step))) if len(times) > 1 else 4
+        energy_t[:margin] = 0
+        energy_t[-margin:] = 0
+
+    win_t = max(10, min(cols, int(round(1.05 / frame_step))))
     kernel = np.ones(win_t) / win_t
     smooth_t = np.convolve(energy_t, kernel, mode="same")
     center_t = int(np.argmax(smooth_t))
@@ -162,27 +175,39 @@ def focus_box(origin_path: Path, adams_path: Path) -> dict[str, float]:
     t1 = min(cols - 1, t0 + win_t)
     t0 = max(0, t1 - win_t)
 
-    energy_f = diff[:, t0 : t1 + 1].mean(axis=1)
-    valid_f = np.flatnonzero(band)
-    center_f = valid_f[int(np.argmax(energy_f[band]))]
-    win_f = max(18, rows // 4)
-    f0 = max(0, center_f - win_f // 2)
-    f1 = min(rows - 1, f0 + win_f)
-    f0 = max(0, f1 - win_f)
+    max_freq = min(sr / 2, freqs[-1])
+    candidate_bands = [
+        (900, min(2600, max_freq)),
+        (2600, min(4600, max_freq)),
+        (4600, min(7600, max_freq)),
+    ]
+    band_scores = []
+    for lo, hi in candidate_bands:
+        band_mask = (freqs >= lo) & (freqs <= hi)
+        if np.any(band_mask):
+            score = improvement[band_mask, t0 : t1 + 1].mean()
+            band_scores.append((float(score), lo, hi))
+    if band_scores:
+        _, lo, hi = max(band_scores, key=lambda item: item[0])
+        f0 = int(np.searchsorted(freqs, lo, side="left"))
+        f1 = int(np.searchsorted(freqs, hi, side="right") - 1)
+    else:
+        f0 = int(rows * 0.35)
+        f1 = int(rows * 0.75)
 
     duration = max(times[-1], 1e-6)
     top_freq = freqs[-1] if freqs[-1] > 0 else sr / 2
     left = 100 * times[t0] / duration
-    width = 100 * max(times[t1] - times[t0], duration * 0.18) / duration
+    width = 100 * max(times[t1] - times[t0], duration * 0.22) / duration
     bottom = 100 * freqs[f0] / top_freq
     height = 100 * max(freqs[f1] - freqs[f0], top_freq * 0.24) / top_freq
     top = 100 - bottom - height
 
     return {
-        "left": round(float(np.clip(left, 2, 82)), 1),
-        "top": round(float(np.clip(top, 4, 68)), 1),
-        "width": round(float(np.clip(width, 16, 42)), 1),
-        "height": round(float(np.clip(height, 20, 48)), 1),
+        "left": round(float(np.clip(left, 5, 76)), 1),
+        "top": round(float(np.clip(top, 6, 66)), 1),
+        "width": round(float(np.clip(width, 20, 40)), 1),
+        "height": round(float(np.clip(height, 22, 42)), 1),
     }
 
 
@@ -272,14 +297,8 @@ def main() -> None:
             model=model,
             testset="noreverb",
         )
-        for model in ["AdapEnhancer", "BSRNN", "FSPEN", "LiSenNet", "FastEnhancer-B"]
+        for model in ["AdapEnhancer"]
     }
-    adams_objective_rows = read_csv_by_fileid(
-        FASTENHANCER / "eval_outputs/fastenhancer_b_adams_objective.csv"
-    )
-    adams_dnsmos_rows = read_csv_by_fileid(
-        FASTENHANCER / "eval_outputs/fastenhancer_b_adams_dnsmos_details.csv"
-    )
 
     audio_root = REPO / "docs/assets/audio"
     spec_root = REPO / "docs/assets/spectrograms"
@@ -309,21 +328,13 @@ def main() -> None:
             "stoi": round(float(noisy_meta["stoi"]), 3),
             "dnsmos_ovl": round(float(noisy_meta["ovl"]), 2),
         }
-        adams_metrics = metrics_from_row(adams_objective_rows.get(fid))
-        adams_metrics.update(metrics_from_row(adams_dnsmos_rows.get(fid)))
         track_metrics = {
             "noisy": noisy_metrics,
             "adapenhancer_b": metrics_from_row(main_rows["AdapEnhancer"].get(fid)),
             "clean": {},
-            "fastenhancer_b_original": metrics_from_row(main_rows["FastEnhancer-B"].get(fid)),
-            "fastenhancer_b_adams": adams_metrics,
-            "bsrnn_original": metrics_from_row(main_rows["BSRNN"].get(fid)),
-            "bsrnn_adams": {},
-            "fspen_original": metrics_from_row(main_rows["FSPEN"].get(fid)),
-            "fspen_adams": {},
-            "lisennet_original": metrics_from_row(main_rows["LiSenNet"].get(fid)),
-            "lisennet_adams": {},
         }
+        for key in pair_keys:
+            track_metrics[key] = {}
 
         sample = {
             "id": fid,
@@ -342,7 +353,7 @@ def main() -> None:
                     "id": group_id,
                     "label": label,
                     "subtitle": "Original vs AdaMS",
-                    "focus": focus_box(paths[origin_key], paths[adams_key]),
+                    "focus": focus_box(paths[origin_key], paths[adams_key], paths["clean"]),
                     "tracks": [
                         {
                             "key": origin_key,

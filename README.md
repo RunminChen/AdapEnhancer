@@ -20,7 +20,7 @@ Demo URL: <https://runminchen.github.io/AdapEnhancer/>
 
 The GitHub Pages demo is prepared under [`docs/`](docs/).
 
-The page includes 5 DNS2020 no-reverb examples. Each example provides playable
+The page includes 3 DNS2020 no-reverb examples. Each example provides playable
 audio, matched spectrograms, a Noisy / AdapEnhancer-B / Clean reference triplet,
 and four Original/AdaMS comparison pairs:
 
@@ -58,8 +58,6 @@ AdapEnhancer-B is 2.9.
 | Sample | DNS noise type | Input SNR |
 |---|---|---:|
 | `fileid_5` | Breath | 3 dB |
-| `fileid_38` | Baby cry | 12 dB |
-| `fileid_88` | Traffic | 11 dB |
 | `fileid_161` | Babble | 8 dB |
 | `fileid_192` | Vacuum cleaner | 1 dB |
 

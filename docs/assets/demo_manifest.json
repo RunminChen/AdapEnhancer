@@ -23,44 +23,14 @@
         "dnsmos_ovl": 3.24
       },
       "clean": {},
-      "fastenhancer_b_original": {
-        "pesq": 2.89,
-        "estoi": 0.912,
-        "sisdr": 18.2,
-        "dnsmos": 3.96,
-        "dnsmos_ovl": 3.24
-      },
-      "fastenhancer_b_adams": {
-        "pesq": 2.8,
-        "estoi": 0.912,
-        "sisdr": 16.6,
-        "dnsmos": 3.98,
-        "dnsmos_ovl": 3.28
-      },
-      "bsrnn_original": {
-        "pesq": 2.75,
-        "estoi": 0.905,
-        "sisdr": 16.7,
-        "dnsmos": 3.94,
-        "dnsmos_ovl": 3.08
-      },
+      "bsrnn_original": {},
       "bsrnn_adams": {},
-      "fspen_original": {
-        "pesq": 2.46,
-        "estoi": 0.888,
-        "sisdr": 13.5,
-        "dnsmos": 3.82,
-        "dnsmos_ovl": 3.05
-      },
+      "fspen_original": {},
       "fspen_adams": {},
-      "lisennet_original": {
-        "pesq": 2.48,
-        "estoi": 0.894,
-        "sisdr": 14.5,
-        "dnsmos": 3.96,
-        "dnsmos_ovl": 3.18
-      },
-      "lisennet_adams": {}
+      "lisennet_original": {},
+      "lisennet_adams": {},
+      "fastenhancer_b_original": {},
+      "fastenhancer_b_adams": {}
     },
     "conditions": [
       {
@@ -103,13 +73,7 @@
         "audio": "assets/audio/fileid_5/bsrnn_original.wav",
         "spectrogram": "assets/spectrograms/fileid_5/bsrnn_original.png",
         "source": "fileid_5.wav",
-        "metrics": {
-          "pesq": 2.75,
-          "estoi": 0.905,
-          "sisdr": 16.7,
-          "dnsmos": 3.94,
-          "dnsmos_ovl": 3.08
-        }
+        "metrics": {}
       },
       {
         "key": "bsrnn_adams",
@@ -125,13 +89,7 @@
         "audio": "assets/audio/fileid_5/fspen_original.wav",
         "spectrogram": "assets/spectrograms/fileid_5/fspen_original.png",
         "source": "fileid_5.wav",
-        "metrics": {
-          "pesq": 2.46,
-          "estoi": 0.888,
-          "sisdr": 13.5,
-          "dnsmos": 3.82,
-          "dnsmos_ovl": 3.05
-        }
+        "metrics": {}
       },
       {
         "key": "fspen_adams",
@@ -147,13 +105,7 @@
         "audio": "assets/audio/fileid_5/lisennet_original.wav",
         "spectrogram": "assets/spectrograms/fileid_5/lisennet_original.png",
         "source": "fileid_5.wav",
-        "metrics": {
-          "pesq": 2.48,
-          "estoi": 0.894,
-          "sisdr": 14.5,
-          "dnsmos": 3.96,
-          "dnsmos_ovl": 3.18
-        }
+        "metrics": {}
       },
       {
         "key": "lisennet_adams",
@@ -169,13 +121,7 @@
         "audio": "assets/audio/fileid_5/fastenhancer_b_original.wav",
         "spectrogram": "assets/spectrograms/fileid_5/fastenhancer_b_original.png",
         "source": "fileid_5.wav",
-        "metrics": {
-          "pesq": 2.89,
-          "estoi": 0.912,
-          "sisdr": 18.2,
-          "dnsmos": 3.96,
-          "dnsmos_ovl": 3.24
-        }
+        "metrics": {}
       },
       {
         "key": "fastenhancer_b_adams",
@@ -183,13 +129,7 @@
         "audio": "assets/audio/fileid_5/fastenhancer_b_adams.wav",
         "spectrogram": "assets/spectrograms/fileid_5/fastenhancer_b_adams.png",
         "source": "fileid_5.wav",
-        "metrics": {
-          "pesq": 2.8,
-          "estoi": 0.912,
-          "sisdr": 16.6,
-          "dnsmos": 3.98,
-          "dnsmos_ovl": 3.28
-        }
+        "metrics": {}
       }
     ],
     "comparison_groups": [
@@ -198,10 +138,10 @@
         "label": "BSRNN",
         "subtitle": "Original vs AdaMS",
         "focus": {
-          "left": 60.5,
-          "top": 28.5,
-          "width": 18.0,
-          "height": 25.0
+          "left": 12.9,
+          "top": 6.0,
+          "width": 22.0,
+          "height": 37.1
         },
         "tracks": [
           {
@@ -223,10 +163,10 @@
         "label": "FSPEN",
         "subtitle": "Original vs AdaMS",
         "focus": {
-          "left": 61.7,
-          "top": 25.4,
-          "width": 18.0,
-          "height": 25.0
+          "left": 65.3,
+          "top": 42.6,
+          "width": 22.0,
+          "height": 24.6
         },
         "tracks": [
           {
@@ -248,10 +188,10 @@
         "label": "LiSenNet",
         "subtitle": "Original vs AdaMS",
         "focus": {
-          "left": 32.5,
-          "top": 68.0,
-          "width": 18.0,
-          "height": 25.0
+          "left": 29.6,
+          "top": 6.0,
+          "width": 22.0,
+          "height": 37.1
         },
         "tracks": [
           {
@@ -273,602 +213,10 @@
         "label": "FastEnhancer-B",
         "subtitle": "Original vs AdaMS",
         "focus": {
-          "left": 33.7,
-          "top": 68.0,
-          "width": 18.0,
-          "height": 25.0
-        },
-        "tracks": [
-          {
-            "key": "fastenhancer_b_original",
-            "label": "Original",
-            "tag": "Origin",
-            "role": "origin"
-          },
-          {
-            "key": "fastenhancer_b_adams",
-            "label": "AdaMS",
-            "tag": "AdaMS",
-            "role": "adams"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "fileid_38",
-    "noise": "Baby cry",
-    "label": "Baby cry interference",
-    "snr": "12 dB",
-    "reference_keys": [
-      "noisy",
-      "adapenhancer_b",
-      "clean"
-    ],
-    "metrics": {
-      "noisy": {
-        "pesq": 1.79,
-        "stoi": 0.956,
-        "dnsmos_ovl": 2.68
-      },
-      "adapenhancer_b": {
-        "pesq": 3.43,
-        "estoi": 0.962,
-        "sisdr": 19.9,
-        "dnsmos": 3.97,
-        "dnsmos_ovl": 3.32
-      },
-      "clean": {},
-      "fastenhancer_b_original": {
-        "pesq": 3.34,
-        "estoi": 0.96,
-        "sisdr": 19.9,
-        "dnsmos": 4.01,
-        "dnsmos_ovl": 3.34
-      },
-      "fastenhancer_b_adams": {
-        "pesq": 3.29,
-        "estoi": 0.957,
-        "sisdr": 19.9,
-        "dnsmos": 3.98,
-        "dnsmos_ovl": 3.33
-      },
-      "bsrnn_original": {
-        "pesq": 3.02,
-        "estoi": 0.959,
-        "sisdr": 18.9,
-        "dnsmos": 3.93,
-        "dnsmos_ovl": 3.29
-      },
-      "bsrnn_adams": {},
-      "fspen_original": {
-        "pesq": 3.2,
-        "estoi": 0.948,
-        "sisdr": 18.7,
-        "dnsmos": 3.88,
-        "dnsmos_ovl": 3.32
-      },
-      "fspen_adams": {},
-      "lisennet_original": {
-        "pesq": 3.3,
-        "estoi": 0.956,
-        "sisdr": 19.0,
-        "dnsmos": 3.89,
-        "dnsmos_ovl": 3.32
-      },
-      "lisennet_adams": {}
-    },
-    "conditions": [
-      {
-        "key": "noisy",
-        "label": "Noisy",
-        "audio": "assets/audio/fileid_38/noisy.wav",
-        "spectrogram": "assets/spectrograms/fileid_38/noisy.png",
-        "source": "clnsp528_baby_416669_0_snr12_tl-29_fileid_38.wav",
-        "metrics": {
-          "pesq": 1.79,
-          "stoi": 0.956,
-          "dnsmos_ovl": 2.68
-        }
-      },
-      {
-        "key": "adapenhancer_b",
-        "label": "AdapEnhancer-B",
-        "audio": "assets/audio/fileid_38/adapenhancer_b.wav",
-        "spectrogram": "assets/spectrograms/fileid_38/adapenhancer_b.png",
-        "source": "fileid_38.wav",
-        "metrics": {
-          "pesq": 3.43,
-          "estoi": 0.962,
-          "sisdr": 19.9,
-          "dnsmos": 3.97,
-          "dnsmos_ovl": 3.32
-        }
-      },
-      {
-        "key": "clean",
-        "label": "Clean",
-        "audio": "assets/audio/fileid_38/clean.wav",
-        "spectrogram": "assets/spectrograms/fileid_38/clean.png",
-        "source": "clean_fileid_38.wav",
-        "metrics": {}
-      },
-      {
-        "key": "bsrnn_original",
-        "label": "BSRNN",
-        "audio": "assets/audio/fileid_38/bsrnn_original.wav",
-        "spectrogram": "assets/spectrograms/fileid_38/bsrnn_original.png",
-        "source": "fileid_38.wav",
-        "metrics": {
-          "pesq": 3.02,
-          "estoi": 0.959,
-          "sisdr": 18.9,
-          "dnsmos": 3.93,
-          "dnsmos_ovl": 3.29
-        }
-      },
-      {
-        "key": "bsrnn_adams",
-        "label": "BSRNN AdaMS",
-        "audio": "assets/audio/fileid_38/bsrnn_adams.wav",
-        "spectrogram": "assets/spectrograms/fileid_38/bsrnn_adams.png",
-        "source": "fileid_38.wav",
-        "metrics": {}
-      },
-      {
-        "key": "fspen_original",
-        "label": "FSPEN",
-        "audio": "assets/audio/fileid_38/fspen_original.wav",
-        "spectrogram": "assets/spectrograms/fileid_38/fspen_original.png",
-        "source": "fileid_38.wav",
-        "metrics": {
-          "pesq": 3.2,
-          "estoi": 0.948,
-          "sisdr": 18.7,
-          "dnsmos": 3.88,
-          "dnsmos_ovl": 3.32
-        }
-      },
-      {
-        "key": "fspen_adams",
-        "label": "FSPEN AdaMS",
-        "audio": "assets/audio/fileid_38/fspen_adams.wav",
-        "spectrogram": "assets/spectrograms/fileid_38/fspen_adams.png",
-        "source": "fileid_38.wav",
-        "metrics": {}
-      },
-      {
-        "key": "lisennet_original",
-        "label": "LiSenNet",
-        "audio": "assets/audio/fileid_38/lisennet_original.wav",
-        "spectrogram": "assets/spectrograms/fileid_38/lisennet_original.png",
-        "source": "fileid_38.wav",
-        "metrics": {
-          "pesq": 3.3,
-          "estoi": 0.956,
-          "sisdr": 19.0,
-          "dnsmos": 3.89,
-          "dnsmos_ovl": 3.32
-        }
-      },
-      {
-        "key": "lisennet_adams",
-        "label": "LiSenNet AdaMS",
-        "audio": "assets/audio/fileid_38/lisennet_adams.wav",
-        "spectrogram": "assets/spectrograms/fileid_38/lisennet_adams.png",
-        "source": "fileid_38.wav",
-        "metrics": {}
-      },
-      {
-        "key": "fastenhancer_b_original",
-        "label": "FastEnhancer-B",
-        "audio": "assets/audio/fileid_38/fastenhancer_b_original.wav",
-        "spectrogram": "assets/spectrograms/fileid_38/fastenhancer_b_original.png",
-        "source": "fileid_38.wav",
-        "metrics": {
-          "pesq": 3.34,
-          "estoi": 0.96,
-          "sisdr": 19.9,
-          "dnsmos": 4.01,
-          "dnsmos_ovl": 3.34
-        }
-      },
-      {
-        "key": "fastenhancer_b_adams",
-        "label": "FastEnhancer-B AdaMS",
-        "audio": "assets/audio/fileid_38/fastenhancer_b_adams.wav",
-        "spectrogram": "assets/spectrograms/fileid_38/fastenhancer_b_adams.png",
-        "source": "fileid_38.wav",
-        "metrics": {
-          "pesq": 3.29,
-          "estoi": 0.957,
-          "sisdr": 19.9,
-          "dnsmos": 3.98,
-          "dnsmos_ovl": 3.33
-        }
-      }
-    ],
-    "comparison_groups": [
-      {
-        "id": "bsrnn",
-        "label": "BSRNN",
-        "subtitle": "Original vs AdaMS",
-        "focus": {
-          "left": 15.9,
-          "top": 68.0,
-          "width": 18.0,
-          "height": 25.0
-        },
-        "tracks": [
-          {
-            "key": "bsrnn_original",
-            "label": "Original",
-            "tag": "Origin",
-            "role": "origin"
-          },
-          {
-            "key": "bsrnn_adams",
-            "label": "AdaMS",
-            "tag": "AdaMS",
-            "role": "adams"
-          }
-        ]
-      },
-      {
-        "id": "fspen",
-        "label": "FSPEN",
-        "subtitle": "Original vs AdaMS",
-        "focus": {
-          "left": 22.0,
-          "top": 52.3,
-          "width": 18.0,
-          "height": 25.0
-        },
-        "tracks": [
-          {
-            "key": "fspen_original",
-            "label": "Original",
-            "tag": "Origin",
-            "role": "origin"
-          },
-          {
-            "key": "fspen_adams",
-            "label": "AdaMS",
-            "tag": "AdaMS",
-            "role": "adams"
-          }
-        ]
-      },
-      {
-        "id": "lisennet",
-        "label": "LiSenNet",
-        "subtitle": "Original vs AdaMS",
-        "focus": {
-          "left": 30.2,
-          "top": 29.3,
-          "width": 18.0,
-          "height": 25.0
-        },
-        "tracks": [
-          {
-            "key": "lisennet_original",
-            "label": "Original",
-            "tag": "Origin",
-            "role": "origin"
-          },
-          {
-            "key": "lisennet_adams",
-            "label": "AdaMS",
-            "tag": "AdaMS",
-            "role": "adams"
-          }
-        ]
-      },
-      {
-        "id": "fastenhancer_b_adams",
-        "label": "FastEnhancer-B",
-        "subtitle": "Original vs AdaMS",
-        "focus": {
-          "left": 69.0,
-          "top": 31.2,
-          "width": 18.0,
-          "height": 25.0
-        },
-        "tracks": [
-          {
-            "key": "fastenhancer_b_original",
-            "label": "Original",
-            "tag": "Origin",
-            "role": "origin"
-          },
-          {
-            "key": "fastenhancer_b_adams",
-            "label": "AdaMS",
-            "tag": "AdaMS",
-            "role": "adams"
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "id": "fileid_88",
-    "noise": "Traffic",
-    "label": "Traffic background",
-    "snr": "11 dB",
-    "reference_keys": [
-      "noisy",
-      "adapenhancer_b",
-      "clean"
-    ],
-    "metrics": {
-      "noisy": {
-        "pesq": 1.28,
-        "stoi": 0.917,
-        "dnsmos_ovl": 2.56
-      },
-      "adapenhancer_b": {
-        "pesq": 2.85,
-        "estoi": 0.931,
-        "sisdr": 17.8,
-        "dnsmos": 4.15,
-        "dnsmos_ovl": 3.42
-      },
-      "clean": {},
-      "fastenhancer_b_original": {
-        "pesq": 2.73,
-        "estoi": 0.927,
-        "sisdr": 17.4,
-        "dnsmos": 4.1,
-        "dnsmos_ovl": 3.41
-      },
-      "fastenhancer_b_adams": {
-        "pesq": 2.8,
-        "estoi": 0.934,
-        "sisdr": 17.9,
-        "dnsmos": 4.13,
-        "dnsmos_ovl": 3.45
-      },
-      "bsrnn_original": {
-        "pesq": 2.75,
-        "estoi": 0.92,
-        "sisdr": 17.3,
-        "dnsmos": 4.1,
-        "dnsmos_ovl": 3.39
-      },
-      "bsrnn_adams": {},
-      "fspen_original": {
-        "pesq": 2.58,
-        "estoi": 0.917,
-        "sisdr": 16.9,
-        "dnsmos": 4.03,
-        "dnsmos_ovl": 3.36
-      },
-      "fspen_adams": {},
-      "lisennet_original": {
-        "pesq": 2.63,
-        "estoi": 0.913,
-        "sisdr": 16.7,
-        "dnsmos": 4.05,
-        "dnsmos_ovl": 3.4
-      },
-      "lisennet_adams": {}
-    },
-    "conditions": [
-      {
-        "key": "noisy",
-        "label": "Noisy",
-        "audio": "assets/audio/fileid_88/noisy.wav",
-        "spectrogram": "assets/spectrograms/fileid_88/noisy.png",
-        "source": "clnsp16_traffic_248091_1_snr11_tl-22_fileid_88.wav",
-        "metrics": {
-          "pesq": 1.28,
-          "stoi": 0.917,
-          "dnsmos_ovl": 2.56
-        }
-      },
-      {
-        "key": "adapenhancer_b",
-        "label": "AdapEnhancer-B",
-        "audio": "assets/audio/fileid_88/adapenhancer_b.wav",
-        "spectrogram": "assets/spectrograms/fileid_88/adapenhancer_b.png",
-        "source": "fileid_88.wav",
-        "metrics": {
-          "pesq": 2.85,
-          "estoi": 0.931,
-          "sisdr": 17.8,
-          "dnsmos": 4.15,
-          "dnsmos_ovl": 3.42
-        }
-      },
-      {
-        "key": "clean",
-        "label": "Clean",
-        "audio": "assets/audio/fileid_88/clean.wav",
-        "spectrogram": "assets/spectrograms/fileid_88/clean.png",
-        "source": "clean_fileid_88.wav",
-        "metrics": {}
-      },
-      {
-        "key": "bsrnn_original",
-        "label": "BSRNN",
-        "audio": "assets/audio/fileid_88/bsrnn_original.wav",
-        "spectrogram": "assets/spectrograms/fileid_88/bsrnn_original.png",
-        "source": "fileid_88.wav",
-        "metrics": {
-          "pesq": 2.75,
-          "estoi": 0.92,
-          "sisdr": 17.3,
-          "dnsmos": 4.1,
-          "dnsmos_ovl": 3.39
-        }
-      },
-      {
-        "key": "bsrnn_adams",
-        "label": "BSRNN AdaMS",
-        "audio": "assets/audio/fileid_88/bsrnn_adams.wav",
-        "spectrogram": "assets/spectrograms/fileid_88/bsrnn_adams.png",
-        "source": "fileid_88.wav",
-        "metrics": {}
-      },
-      {
-        "key": "fspen_original",
-        "label": "FSPEN",
-        "audio": "assets/audio/fileid_88/fspen_original.wav",
-        "spectrogram": "assets/spectrograms/fileid_88/fspen_original.png",
-        "source": "fileid_88.wav",
-        "metrics": {
-          "pesq": 2.58,
-          "estoi": 0.917,
-          "sisdr": 16.9,
-          "dnsmos": 4.03,
-          "dnsmos_ovl": 3.36
-        }
-      },
-      {
-        "key": "fspen_adams",
-        "label": "FSPEN AdaMS",
-        "audio": "assets/audio/fileid_88/fspen_adams.wav",
-        "spectrogram": "assets/spectrograms/fileid_88/fspen_adams.png",
-        "source": "fileid_88.wav",
-        "metrics": {}
-      },
-      {
-        "key": "lisennet_original",
-        "label": "LiSenNet",
-        "audio": "assets/audio/fileid_88/lisennet_original.wav",
-        "spectrogram": "assets/spectrograms/fileid_88/lisennet_original.png",
-        "source": "fileid_88.wav",
-        "metrics": {
-          "pesq": 2.63,
-          "estoi": 0.913,
-          "sisdr": 16.7,
-          "dnsmos": 4.05,
-          "dnsmos_ovl": 3.4
-        }
-      },
-      {
-        "key": "lisennet_adams",
-        "label": "LiSenNet AdaMS",
-        "audio": "assets/audio/fileid_88/lisennet_adams.wav",
-        "spectrogram": "assets/spectrograms/fileid_88/lisennet_adams.png",
-        "source": "fileid_88.wav",
-        "metrics": {}
-      },
-      {
-        "key": "fastenhancer_b_original",
-        "label": "FastEnhancer-B",
-        "audio": "assets/audio/fileid_88/fastenhancer_b_original.wav",
-        "spectrogram": "assets/spectrograms/fileid_88/fastenhancer_b_original.png",
-        "source": "fileid_88.wav",
-        "metrics": {
-          "pesq": 2.73,
-          "estoi": 0.927,
-          "sisdr": 17.4,
-          "dnsmos": 4.1,
-          "dnsmos_ovl": 3.41
-        }
-      },
-      {
-        "key": "fastenhancer_b_adams",
-        "label": "FastEnhancer-B AdaMS",
-        "audio": "assets/audio/fileid_88/fastenhancer_b_adams.wav",
-        "spectrogram": "assets/spectrograms/fileid_88/fastenhancer_b_adams.png",
-        "source": "fileid_88.wav",
-        "metrics": {
-          "pesq": 2.8,
-          "estoi": 0.934,
-          "sisdr": 17.9,
-          "dnsmos": 4.13,
-          "dnsmos_ovl": 3.45
-        }
-      }
-    ],
-    "comparison_groups": [
-      {
-        "id": "bsrnn",
-        "label": "BSRNN",
-        "subtitle": "Original vs AdaMS",
-        "focus": {
-          "left": 76.1,
-          "top": 68.0,
-          "width": 18.0,
-          "height": 25.0
-        },
-        "tracks": [
-          {
-            "key": "bsrnn_original",
-            "label": "Original",
-            "tag": "Origin",
-            "role": "origin"
-          },
-          {
-            "key": "bsrnn_adams",
-            "label": "AdaMS",
-            "tag": "AdaMS",
-            "role": "adams"
-          }
-        ]
-      },
-      {
-        "id": "fspen",
-        "label": "FSPEN",
-        "subtitle": "Original vs AdaMS",
-        "focus": {
-          "left": 82.0,
-          "top": 68.0,
-          "width": 18.0,
-          "height": 25.0
-        },
-        "tracks": [
-          {
-            "key": "fspen_original",
-            "label": "Original",
-            "tag": "Origin",
-            "role": "origin"
-          },
-          {
-            "key": "fspen_adams",
-            "label": "AdaMS",
-            "tag": "AdaMS",
-            "role": "adams"
-          }
-        ]
-      },
-      {
-        "id": "lisennet",
-        "label": "LiSenNet",
-        "subtitle": "Original vs AdaMS",
-        "focus": {
-          "left": 80.1,
-          "top": 41.4,
-          "width": 18.0,
-          "height": 25.0
-        },
-        "tracks": [
-          {
-            "key": "lisennet_original",
-            "label": "Original",
-            "tag": "Origin",
-            "role": "origin"
-          },
-          {
-            "key": "lisennet_adams",
-            "label": "AdaMS",
-            "tag": "AdaMS",
-            "role": "adams"
-          }
-        ]
-      },
-      {
-        "id": "fastenhancer_b_adams",
-        "label": "FastEnhancer-B",
-        "subtitle": "Original vs AdaMS",
-        "focus": {
-          "left": 76.2,
-          "top": 68.0,
-          "width": 18.0,
-          "height": 25.0
+          "left": 60.3,
+          "top": 42.6,
+          "width": 22.0,
+          "height": 24.6
         },
         "tracks": [
           {
@@ -911,44 +259,14 @@
         "dnsmos_ovl": 3.01
       },
       "clean": {},
-      "fastenhancer_b_original": {
-        "pesq": 2.2,
-        "estoi": 0.879,
-        "sisdr": 13.5,
-        "dnsmos": 3.82,
-        "dnsmos_ovl": 3.18
-      },
-      "fastenhancer_b_adams": {
-        "pesq": 2.1,
-        "estoi": 0.877,
-        "sisdr": 13.4,
-        "dnsmos": 3.96,
-        "dnsmos_ovl": 3.1
-      },
-      "bsrnn_original": {
-        "pesq": 2.16,
-        "estoi": 0.884,
-        "sisdr": 13.6,
-        "dnsmos": 3.65,
-        "dnsmos_ovl": 2.96
-      },
+      "bsrnn_original": {},
       "bsrnn_adams": {},
-      "fspen_original": {
-        "pesq": 1.95,
-        "estoi": 0.859,
-        "sisdr": 11.9,
-        "dnsmos": 3.72,
-        "dnsmos_ovl": 2.94
-      },
+      "fspen_original": {},
       "fspen_adams": {},
-      "lisennet_original": {
-        "pesq": 1.96,
-        "estoi": 0.866,
-        "sisdr": 12.4,
-        "dnsmos": 3.76,
-        "dnsmos_ovl": 3.11
-      },
-      "lisennet_adams": {}
+      "lisennet_original": {},
+      "lisennet_adams": {},
+      "fastenhancer_b_original": {},
+      "fastenhancer_b_adams": {}
     },
     "conditions": [
       {
@@ -991,13 +309,7 @@
         "audio": "assets/audio/fileid_161/bsrnn_original.wav",
         "spectrogram": "assets/spectrograms/fileid_161/bsrnn_original.png",
         "source": "fileid_161.wav",
-        "metrics": {
-          "pesq": 2.16,
-          "estoi": 0.884,
-          "sisdr": 13.6,
-          "dnsmos": 3.65,
-          "dnsmos_ovl": 2.96
-        }
+        "metrics": {}
       },
       {
         "key": "bsrnn_adams",
@@ -1013,13 +325,7 @@
         "audio": "assets/audio/fileid_161/fspen_original.wav",
         "spectrogram": "assets/spectrograms/fileid_161/fspen_original.png",
         "source": "fileid_161.wav",
-        "metrics": {
-          "pesq": 1.95,
-          "estoi": 0.859,
-          "sisdr": 11.9,
-          "dnsmos": 3.72,
-          "dnsmos_ovl": 2.94
-        }
+        "metrics": {}
       },
       {
         "key": "fspen_adams",
@@ -1035,13 +341,7 @@
         "audio": "assets/audio/fileid_161/lisennet_original.wav",
         "spectrogram": "assets/spectrograms/fileid_161/lisennet_original.png",
         "source": "fileid_161.wav",
-        "metrics": {
-          "pesq": 1.96,
-          "estoi": 0.866,
-          "sisdr": 12.4,
-          "dnsmos": 3.76,
-          "dnsmos_ovl": 3.11
-        }
+        "metrics": {}
       },
       {
         "key": "lisennet_adams",
@@ -1057,13 +357,7 @@
         "audio": "assets/audio/fileid_161/fastenhancer_b_original.wav",
         "spectrogram": "assets/spectrograms/fileid_161/fastenhancer_b_original.png",
         "source": "fileid_161.wav",
-        "metrics": {
-          "pesq": 2.2,
-          "estoi": 0.879,
-          "sisdr": 13.5,
-          "dnsmos": 3.82,
-          "dnsmos_ovl": 3.18
-        }
+        "metrics": {}
       },
       {
         "key": "fastenhancer_b_adams",
@@ -1071,13 +365,7 @@
         "audio": "assets/audio/fileid_161/fastenhancer_b_adams.wav",
         "spectrogram": "assets/spectrograms/fileid_161/fastenhancer_b_adams.png",
         "source": "fileid_161.wav",
-        "metrics": {
-          "pesq": 2.1,
-          "estoi": 0.877,
-          "sisdr": 13.4,
-          "dnsmos": 3.96,
-          "dnsmos_ovl": 3.1
-        }
+        "metrics": {}
       }
     ],
     "comparison_groups": [
@@ -1086,10 +374,10 @@
         "label": "BSRNN",
         "subtitle": "Original vs AdaMS",
         "focus": {
-          "left": 56.3,
-          "top": 68.0,
-          "width": 18.0,
-          "height": 25.0
+          "left": 55.6,
+          "top": 64.7,
+          "width": 22.0,
+          "height": 24.0
         },
         "tracks": [
           {
@@ -1111,10 +399,10 @@
         "label": "FSPEN",
         "subtitle": "Original vs AdaMS",
         "focus": {
-          "left": 2.0,
-          "top": 68.0,
-          "width": 18.0,
-          "height": 25.0
+          "left": 5.0,
+          "top": 64.7,
+          "width": 22.0,
+          "height": 24.0
         },
         "tracks": [
           {
@@ -1136,10 +424,10 @@
         "label": "LiSenNet",
         "subtitle": "Original vs AdaMS",
         "focus": {
-          "left": 71.3,
-          "top": 27.3,
-          "width": 18.0,
-          "height": 25.0
+          "left": 74.8,
+          "top": 6.0,
+          "width": 22.0,
+          "height": 37.1
         },
         "tracks": [
           {
@@ -1161,10 +449,10 @@
         "label": "FastEnhancer-B",
         "subtitle": "Original vs AdaMS",
         "focus": {
-          "left": 71.4,
-          "top": 68.0,
-          "width": 18.0,
-          "height": 25.0
+          "left": 15.1,
+          "top": 6.0,
+          "width": 22.0,
+          "height": 37.1
         },
         "tracks": [
           {
@@ -1207,44 +495,14 @@
         "dnsmos_ovl": 2.83
       },
       "clean": {},
-      "fastenhancer_b_original": {
-        "pesq": 1.46,
-        "estoi": 0.736,
-        "sisdr": 9.7,
-        "dnsmos": 3.46,
-        "dnsmos_ovl": 2.72
-      },
-      "fastenhancer_b_adams": {
-        "pesq": 1.53,
-        "estoi": 0.756,
-        "sisdr": 10.3,
-        "dnsmos": 3.55,
-        "dnsmos_ovl": 2.75
-      },
-      "bsrnn_original": {
-        "pesq": 1.5,
-        "estoi": 0.743,
-        "sisdr": 9.9,
-        "dnsmos": 3.6,
-        "dnsmos_ovl": 2.78
-      },
+      "bsrnn_original": {},
       "bsrnn_adams": {},
-      "fspen_original": {
-        "pesq": 1.44,
-        "estoi": 0.713,
-        "sisdr": 8.9,
-        "dnsmos": 3.22,
-        "dnsmos_ovl": 2.48
-      },
+      "fspen_original": {},
       "fspen_adams": {},
-      "lisennet_original": {
-        "pesq": 1.44,
-        "estoi": 0.713,
-        "sisdr": 9.0,
-        "dnsmos": 3.3,
-        "dnsmos_ovl": 2.63
-      },
-      "lisennet_adams": {}
+      "lisennet_original": {},
+      "lisennet_adams": {},
+      "fastenhancer_b_original": {},
+      "fastenhancer_b_adams": {}
     },
     "conditions": [
       {
@@ -1287,13 +545,7 @@
         "audio": "assets/audio/fileid_192/bsrnn_original.wav",
         "spectrogram": "assets/spectrograms/fileid_192/bsrnn_original.png",
         "source": "fileid_192.wav",
-        "metrics": {
-          "pesq": 1.5,
-          "estoi": 0.743,
-          "sisdr": 9.9,
-          "dnsmos": 3.6,
-          "dnsmos_ovl": 2.78
-        }
+        "metrics": {}
       },
       {
         "key": "bsrnn_adams",
@@ -1309,13 +561,7 @@
         "audio": "assets/audio/fileid_192/fspen_original.wav",
         "spectrogram": "assets/spectrograms/fileid_192/fspen_original.png",
         "source": "fileid_192.wav",
-        "metrics": {
-          "pesq": 1.44,
-          "estoi": 0.713,
-          "sisdr": 8.9,
-          "dnsmos": 3.22,
-          "dnsmos_ovl": 2.48
-        }
+        "metrics": {}
       },
       {
         "key": "fspen_adams",
@@ -1331,13 +577,7 @@
         "audio": "assets/audio/fileid_192/lisennet_original.wav",
         "spectrogram": "assets/spectrograms/fileid_192/lisennet_original.png",
         "source": "fileid_192.wav",
-        "metrics": {
-          "pesq": 1.44,
-          "estoi": 0.713,
-          "sisdr": 9.0,
-          "dnsmos": 3.3,
-          "dnsmos_ovl": 2.63
-        }
+        "metrics": {}
       },
       {
         "key": "lisennet_adams",
@@ -1353,13 +593,7 @@
         "audio": "assets/audio/fileid_192/fastenhancer_b_original.wav",
         "spectrogram": "assets/spectrograms/fileid_192/fastenhancer_b_original.png",
         "source": "fileid_192.wav",
-        "metrics": {
-          "pesq": 1.46,
-          "estoi": 0.736,
-          "sisdr": 9.7,
-          "dnsmos": 3.46,
-          "dnsmos_ovl": 2.72
-        }
+        "metrics": {}
       },
       {
         "key": "fastenhancer_b_adams",
@@ -1367,13 +601,7 @@
         "audio": "assets/audio/fileid_192/fastenhancer_b_adams.wav",
         "spectrogram": "assets/spectrograms/fileid_192/fastenhancer_b_adams.png",
         "source": "fileid_192.wav",
-        "metrics": {
-          "pesq": 1.53,
-          "estoi": 0.756,
-          "sisdr": 10.3,
-          "dnsmos": 3.55,
-          "dnsmos_ovl": 2.75
-        }
+        "metrics": {}
       }
     ],
     "comparison_groups": [
@@ -1382,10 +610,10 @@
         "label": "BSRNN",
         "subtitle": "Original vs AdaMS",
         "focus": {
-          "left": 18.6,
-          "top": 68.0,
-          "width": 18.0,
-          "height": 25.0
+          "left": 61.3,
+          "top": 6.0,
+          "width": 22.0,
+          "height": 37.1
         },
         "tracks": [
           {
@@ -1407,10 +635,10 @@
         "label": "FSPEN",
         "subtitle": "Original vs AdaMS",
         "focus": {
-          "left": 2.0,
-          "top": 14.8,
-          "width": 18.0,
-          "height": 25.0
+          "left": 61.3,
+          "top": 6.0,
+          "width": 22.0,
+          "height": 37.1
         },
         "tracks": [
           {
@@ -1432,10 +660,10 @@
         "label": "LiSenNet",
         "subtitle": "Original vs AdaMS",
         "focus": {
-          "left": 7.3,
-          "top": 4.0,
-          "width": 18.0,
-          "height": 25.0
+          "left": 71.8,
+          "top": 64.7,
+          "width": 22.0,
+          "height": 24.0
         },
         "tracks": [
           {
@@ -1457,10 +685,10 @@
         "label": "FastEnhancer-B",
         "subtitle": "Original vs AdaMS",
         "focus": {
-          "left": 51.0,
-          "top": 62.1,
-          "width": 18.0,
-          "height": 25.0
+          "left": 63.9,
+          "top": 6.0,
+          "width": 22.0,
+          "height": 37.1
         },
         "tracks": [
           {
