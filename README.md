@@ -1,6 +1,7 @@
 # AdapEnhancer
 
-Adaptive multi-resolution speech enhancement for compact streaming scenarios.
+Adaptive multi-resolution speech enhancement for streaming-oriented real-time
+scenarios.
 
 This repository is a lightweight public demo page for AdapEnhancer. Source code,
 training scripts, and model checkpoints will be released after paper acceptance.
@@ -12,7 +13,13 @@ demo assets for listening and spectrogram comparison.
 - Adaptive multi-resolution DPM placement across high-, low-, and bottleneck
   feature resolutions.
 - Acoustic-state residual weighting for input-dependent scale contribution.
-- Compact speech enhancement target with practical streaming constraints.
+- Streaming-compatible speech enhancement target with practical deployment
+  constraints.
+
+## Streaming Inference
+
+A streaming AdapEnhancer-B inference path demonstrates a real-time factor (RTF)
+of 0.03 on an Intel(R) Xeon(R) w7-3445 CPU.
 
 ## Online Demo
 
