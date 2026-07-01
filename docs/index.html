@@ -243,6 +243,21 @@
       overflow: hidden;
     }
 
+    .model-block + .model-block {
+      margin-top: 18px;
+    }
+
+    .model-head {
+      margin: 0 0 10px;
+    }
+
+    .model-title {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
     .sample-tabs {
       display: flex;
       gap: 8px;
@@ -366,7 +381,6 @@
 
     .reference-grid {
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      border-bottom: 1px solid var(--line);
     }
 
     .comparison-panel {
@@ -581,14 +595,13 @@
         <p class="lead">
           Adaptive multi-resolution speech enhancement for compact streaming
           scenarios. The public page highlights VoiceBank+DEMAND objective
-          results and a focused DNS2020 listening desk with matched
-          spectrograms.
+          results and a focused listening desk with matched spectrograms.
         </p>
         <a class="demo-link" href="https://runminchen.github.io/AdapEnhancer/">https://runminchen.github.io/AdapEnhancer/</a>
         <div class="badges">
           <span class="badge">Adaptive DPM Placement</span>
           <span class="badge">Acoustic-State Residual Weighting</span>
-          <span class="badge">DNS2020 Listening Demo</span>
+          <span class="badge">Listening Demo</span>
         </div>
         <div class="hero-stats">
           <div class="stat">
@@ -654,13 +667,10 @@
 
     <section>
       <div class="section-head">
-        <h2>DNS2020 Listening Demo</h2>
-        <p class="note">Curated DNS2020 cases with playable tracks, comparison algorithms, and matched Origin/AdaMS spectrogram focus boxes.</p>
+        <h2>Listening Demo</h2>
+        <p class="note">Playable microphone and laser-recording examples with matched spectrograms.</p>
       </div>
-      <div class="demo-shell">
-        <div id="sample-tabs" class="sample-tabs"></div>
-        <div id="demo-root"></div>
-      </div>
+      <div id="demo-root"></div>
     </section>
 
     <footer>
@@ -669,16 +679,8 @@
   </main>
 
   <script>
-    let samples = [];
-
-    const referenceTracks = [
-      { key: "noisy", label: "Noisy", tag: "Input", className: "" },
-      { key: "adapenhancer_b", label: "AdapEnhancer-B", tag: "Proposed", className: "primary" },
-      { key: "clean", label: "Clean", tag: "Reference", className: "clean" }
-    ];
-
+    let demoGroups = [];
     const root = document.getElementById("demo-root");
-    const sampleTabs = document.getElementById("sample-tabs");
 
     function formatMetric(value, digits = 2) {
       return Number.isFinite(Number(value)) ? Number(value).toFixed(digits) : "-";
@@ -686,18 +688,25 @@
 
     function metricChips(sample) {
       const noisy = sample.metrics?.noisy || {};
-      const enhanced = sample.metrics?.adapenhancer_b || {};
+      const enhanced = sample.metrics?.enhanced || {};
+      const parts = [];
+      if (noisy.pesq !== undefined || enhanced.pesq !== undefined) {
+        parts.push(`PESQ ${formatMetric(noisy.pesq)} -> ${formatMetric(enhanced.pesq)}`);
+      }
+      if (noisy.dnsmos_ovl !== undefined || enhanced.dnsmos_ovl !== undefined) {
+        parts.push(`OVL ${formatMetric(noisy.dnsmos_ovl)} -> ${formatMetric(enhanced.dnsmos_ovl)}`);
+      }
+      if (enhanced.estoi !== undefined) {
+        parts.push(`ESTOI ${formatMetric(enhanced.estoi, 3)}`);
+      }
+      if (!parts.length) {
+        return "";
+      }
       return `
         <div class="metric-strip">
-          <span class="metric-chip">PESQ ${formatMetric(noisy.pesq)} -> ${formatMetric(enhanced.pesq)}</span>
-          <span class="metric-chip">OVL ${formatMetric(noisy.dnsmos_ovl)} -> ${formatMetric(enhanced.dnsmos_ovl)}</span>
-          <span class="metric-chip">ESTOI ${formatMetric(enhanced.estoi, 3)}</span>
+          ${parts.map((part) => `<span class="metric-chip">${part}</span>`).join("")}
         </div>
       `;
-    }
-
-    function conditionFor(sample, key) {
-      return sample.conditions?.find((condition) => condition.key === key) || {};
     }
 
     function miniMetrics(condition, track) {
@@ -714,41 +723,28 @@
       return `<div class="track-metrics">${parts.map((part) => `<span>${part}</span>`).join("")}</div>`;
     }
 
-    function focusMarkup(focus, role) {
-      if (!focus) {
-        return "";
-      }
-      return `
-        <div
-          class="focus-box ${role || ""}"
-          style="left: ${focus.left}%; top: ${focus.top}%; width: ${focus.width}%; height: ${focus.height}%;"
-        ></div>
-      `;
-    }
-
-    function createTrackCard(sample, track, focus = null) {
-      const condition = conditionFor(sample, track.key);
-      const spectrogram = condition.spectrogram || `assets/spectrograms/${sample.id}/${track.key}.png`;
-      const audio = condition.audio || `assets/audio/${sample.id}/${track.key}.wav`;
-      const label = track.label || condition.label || track.key;
-      const tag = track.tag || "Audio";
+    function createTrackCard(track) {
+      const condition = track || {};
+      const spectrogram = condition.spectrogram;
+      const audio = condition.audio;
+      const label = condition.label || condition.key || "Audio";
+      const tag = condition.tag || "Audio";
       const card = document.createElement("div");
-      card.className = `track ${track.className}`.trim();
+      card.className = `track ${condition.className || ""}`.trim();
       card.innerHTML = `
         <div class="track-head">
           <div>
             <div class="track-name">${label}</div>
-            ${miniMetrics(condition, track)}
+            ${miniMetrics(condition, condition)}
           </div>
           <span class="track-tag">${tag}</span>
         </div>
         <div class="spectrogram">
           <img
             src="${spectrogram}"
-            alt="${sample.id} ${label} spectrogram"
+            alt="${label} spectrogram"
             loading="lazy"
           />
-          ${focusMarkup(focus, track.role)}
         </div>
         <div class="player">
           <audio controls preload="none" src="${audio}">
@@ -759,29 +755,9 @@
       return card;
     }
 
-    function renderPairGroup(article, sample, groupIndex) {
-      const groups = sample.comparison_groups || [];
-      const group = groups[groupIndex] || groups[0];
-      if (!group) return;
-
-      const buttons = [...article.querySelectorAll(".pair-button")];
-      buttons.forEach((button, index) => button.classList.toggle("active", index === groupIndex));
-
-      const pairTitle = article.querySelector(".pair-title");
-      const pairNote = article.querySelector(".pair-note");
-      if (pairTitle) pairTitle.textContent = `${group.label}: ${group.subtitle || "Origin vs AdaMS"}`;
-      if (pairNote) pairNote.textContent = "All algorithms use the same boxed region for this sample; red is Origin and green is AdaMS.";
-
-      const pairGrid = article.querySelector(".pair-grid");
-      const cards = (group.tracks || []).map((track) => {
-        const className = track.role === "adams" ? "adams" : "";
-        return createTrackCard(sample, { ...track, className }, group.focus);
-      });
-      pairGrid.replaceChildren(...cards);
-    }
-
-    function renderSample(activeSampleIndex) {
-      const sample = samples[activeSampleIndex];
+    function renderSample(modelBlock, group, activeSampleIndex) {
+      const sample = group.samples[activeSampleIndex];
+      const sampleTabs = modelBlock.querySelector(".sample-tabs");
       [...sampleTabs.children].forEach((button, index) => {
         button.classList.toggle("active", index === activeSampleIndex);
       });
@@ -800,43 +776,51 @@
           </div>
         </div>
         <div class="sample-analysis">
-          <p class="sample-copy">Use the reference players for context, then switch among algorithm-specific Origin/AdaMS pairs.</p>
+          <p class="sample-copy">Use the players for direct listening and inspect the matched spectrograms.</p>
           ${metricChips(sample)}
         </div>
         <div class="group-title">
-          <h4>Core listening triplet</h4>
-          <p>Noisy input, proposed output, and clean reference</p>
+          <h4>Listening tracks</h4>
+          <p>Noisy input and enhanced output${(sample.tracks || []).some((track) => track.key === "clean") ? ", with clean reference" : ""}</p>
         </div>
         <div class="reference-grid"></div>
-        <div class="comparison-panel">
-          <div class="group-title" style="padding: 0 0 12px;">
-            <h4 class="pair-title">Origin vs AdaMS</h4>
-            <p class="pair-note"></p>
-          </div>
-          <div class="pair-toolbar">
-          </div>
-          <div class="pair-grid"></div>
-        </div>
       `;
 
       const referenceGrid = article.querySelector(".reference-grid");
-      referenceGrid.replaceChildren(...referenceTracks.map((track) => createTrackCard(sample, track)));
+      referenceGrid.replaceChildren(...(sample.tracks || []).map((track) => createTrackCard(track)));
 
-      const toolbar = article.querySelector(".pair-toolbar");
-      const groups = sample.comparison_groups || [];
-      toolbar.replaceChildren(
-        ...groups.map((group, index) => {
-          const button = document.createElement("button");
-          button.type = "button";
-          button.className = "pair-button";
-          button.textContent = `${group.label} ${group.subtitle || ""}`.trim();
-          button.addEventListener("click", () => renderPairGroup(article, sample, index));
-          return button;
-        })
-      );
-      renderPairGroup(article, sample, 0);
+      const sampleRoot = modelBlock.querySelector(".model-sample-root");
+      sampleRoot.replaceChildren(article);
+    }
 
-      root.replaceChildren(article);
+    function createModelBlock(group) {
+      const block = document.createElement("div");
+      block.className = "model-block";
+      block.innerHTML = `
+        <div class="section-head model-head">
+          <div>
+            <h3 class="model-title">${group.title}</h3>
+            <p class="note">${group.subtitle || ""}</p>
+          </div>
+        </div>
+        <div class="demo-shell">
+          <div class="sample-tabs"></div>
+          <div class="model-sample-root"></div>
+        </div>
+      `;
+
+      const tabs = block.querySelector(".sample-tabs");
+      (group.samples || []).forEach((sample, index) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "sample-button";
+        button.innerHTML = `${sample.id}<br><span>${sample.noise}${sample.snr ? `, ${sample.snr}` : ""}</span>`;
+        button.addEventListener("click", () => renderSample(block, group, index));
+        tabs.appendChild(button);
+      });
+
+      renderSample(block, group, 0);
+      return block;
     }
 
     async function initDemo() {
@@ -845,22 +829,13 @@
         if (!response.ok) {
           throw new Error(`Manifest request failed: ${response.status}`);
         }
-        samples = await response.json();
+        demoGroups = await response.json();
       } catch (error) {
         root.innerHTML = `<div class="sample-header"><p class="note">Demo manifest could not be loaded.</p></div>`;
         return;
       }
 
-      samples.forEach((sample, index) => {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "sample-button";
-        button.innerHTML = `${sample.id}<br><span>${sample.noise}, SNR ${sample.snr}</span>`;
-        button.addEventListener("click", () => renderSample(index));
-        sampleTabs.appendChild(button);
-      });
-
-      renderSample(0);
+      root.replaceChildren(...demoGroups.map((group) => createModelBlock(group)));
     }
 
     initDemo();

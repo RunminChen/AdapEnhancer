@@ -1,25 +1,18 @@
 # AdapEnhancer
 
-Adaptive multi-resolution speech enhancement for streaming-oriented real-time
-scenarios.
+Adaptive multi-resolution speech enhancement demo page.
 
 This repository is a lightweight public demo page for AdapEnhancer. Source code,
 training scripts, and model checkpoints will be released after paper acceptance.
-The current version keeps project notes, presentation metrics, and DNS2020 audio
-demo assets for listening and spectrogram comparison.
+The current version keeps project notes, presentation metrics, and audio demo
+assets for listening and spectrogram comparison.
 
 ## Highlights
 
 - Adaptive multi-resolution DPM placement across high-, low-, and bottleneck
   feature resolutions.
 - Acoustic-state residual weighting for input-dependent scale contribution.
-- Streaming-compatible speech enhancement target with practical deployment
-  constraints.
-
-## Streaming Inference
-
-A streaming AdapEnhancer-B inference path demonstrates a real-time factor (RTF)
-of 0.03 on an Intel(R) Xeon(R) w7-3445 CPU.
+- Microphone and laser-recording listening examples with matched spectrograms.
 
 ## Online Demo
 
@@ -27,19 +20,15 @@ Demo URL: <https://runminchen.github.io/AdapEnhancer/>
 
 The GitHub Pages demo is prepared under [`docs/`](docs/).
 
-The page includes 3 DNS2020 no-reverb examples. Each example provides playable
-audio, matched spectrograms, a Noisy / AdapEnhancer-B / Clean reference triplet,
-and four Original/AdaMS comparison pairs:
+The page includes microphone examples under Mamba and laser-recording examples
+under VSSFormer. Each example provides playable audio and matched spectrograms.
 
 | Track | Description |
 |---|---|
-| AdapEnhancer-B | Proposed enhanced result |
-| Noisy | DNS noisy input |
-| Clean | DNS clean reference |
-| BSRNN Original / AdaMS | Pairwise comparison |
-| FSPEN Original / AdaMS | Pairwise comparison |
-| LiSenNet Original / AdaMS | Pairwise comparison |
-| FastEnhancer-B Original / AdaMS | Pairwise comparison |
+| Mamba | Microphone enhancement examples |
+| VSSFormer | Laser-recording enhancement examples |
+| Noisy | Noisy input |
+| Clean | Clean reference when available |
 
 ## VoiceBank+DEMAND Comparison
 
@@ -62,11 +51,15 @@ AdapEnhancer-B is 2.9.
 
 ## Demo Samples
 
-| Sample | DNS noise type | Input SNR |
-|---|---|---:|
-| `fileid_161` | Babble | 8 dB |
-| `fileid_192` | Vacuum cleaner | 1 dB |
-| `fileid_5` | Breath | 3 dB |
+| Group | Sample | Scenario |
+|---|---|---|
+| Mamba | `fileid_161` | Babble microphone noise |
+| Mamba | `fileid_192` | Vacuum motor microphone noise |
+| Mamba | `fileid_5` | Breathing microphone noise |
+| VSSFormer | `zjj_l1_cn` | ZJJ noisy laser recording |
+| VSSFormer | `zjj_l2_cn` | ZJJ noisy laser recording |
+| VSSFormer | `zjj_l4_cn` | ZJJ noisy laser recording |
+| VSSFormer | `zjj_l3_en` | ZJJ noisy laser recording |
 
 ## Repository Layout
 
