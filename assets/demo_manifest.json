@@ -1,297 +1,709 @@
 [
   {
-    "id": "mamba",
-    "title": "Mamba",
-    "subtitle": "Microphone and acoustic-noise examples",
-    "samples": [
+    "id": "fileid_161",
+    "noise": "Babble",
+    "label": "Babble speech noise",
+    "snr": "8 dB",
+    "reference_keys": [
+      "noisy",
+      "adapenhancer_b",
+      "clean"
+    ],
+    "metrics": {
+      "noisy": {
+        "pesq": 1.26,
+        "stoi": 0.889,
+        "dnsmos_ovl": 2.67
+      },
+      "adapenhancer_b": {
+        "pesq": 2.25,
+        "estoi": 0.882,
+        "sisdr": 13.7,
+        "dnsmos": 3.85,
+        "dnsmos_ovl": 3.01
+      },
+      "clean": {},
+      "bsrnn_original": {},
+      "bsrnn_adams": {},
+      "fspen_original": {},
+      "fspen_adams": {},
+      "lisennet_original": {},
+      "lisennet_adams": {},
+      "fastenhancer_b_original": {},
+      "fastenhancer_b_adams": {}
+    },
+    "conditions": [
       {
-        "id": "fileid_161",
-        "noise": "Babble",
-        "label": "Babble speech noise",
-        "snr": "8 dB",
+        "key": "noisy",
+        "label": "Noisy",
+        "audio": "assets/audio/fileid_161/noisy.wav",
+        "spectrogram": "assets/spectrograms/fileid_161/noisy.png",
+        "source": "clnsp611_babble_188218_6_snr8_tl-33_fileid_161.wav",
         "metrics": {
-          "noisy": {
-            "pesq": 1.26,
-            "stoi": 0.889,
-            "dnsmos_ovl": 2.67
-          },
-          "enhanced": {
-            "pesq": 2.25,
-            "estoi": 0.882,
-            "sisdr": 13.7,
-            "dnsmos": 3.85,
-            "dnsmos_ovl": 3.01
-          }
+          "pesq": 1.26,
+          "stoi": 0.889,
+          "dnsmos_ovl": 2.67
+        }
+      },
+      {
+        "key": "adapenhancer_b",
+        "label": "AdapEnhancer-B",
+        "audio": "assets/audio/fileid_161/adapenhancer_b.wav",
+        "spectrogram": "assets/spectrograms/fileid_161/adapenhancer_b.png",
+        "source": "fileid_161.wav",
+        "metrics": {
+          "pesq": 2.25,
+          "estoi": 0.882,
+          "sisdr": 13.7,
+          "dnsmos": 3.85,
+          "dnsmos_ovl": 3.01
+        }
+      },
+      {
+        "key": "clean",
+        "label": "Clean",
+        "audio": "assets/audio/fileid_161/clean.wav",
+        "spectrogram": "assets/spectrograms/fileid_161/clean.png",
+        "source": "clean_fileid_161.wav",
+        "metrics": {}
+      },
+      {
+        "key": "bsrnn_original",
+        "label": "BSRNN",
+        "audio": "assets/audio/fileid_161/bsrnn_original.wav",
+        "spectrogram": "assets/spectrograms/fileid_161/bsrnn_original.png",
+        "source": "fileid_161.wav",
+        "metrics": {}
+      },
+      {
+        "key": "bsrnn_adams",
+        "label": "BSRNN AdaMS",
+        "audio": "assets/audio/fileid_161/bsrnn_adams.wav",
+        "spectrogram": "assets/spectrograms/fileid_161/bsrnn_adams.png",
+        "source": "fileid_161.wav",
+        "metrics": {}
+      },
+      {
+        "key": "fspen_original",
+        "label": "FSPEN",
+        "audio": "assets/audio/fileid_161/fspen_original.wav",
+        "spectrogram": "assets/spectrograms/fileid_161/fspen_original.png",
+        "source": "fileid_161.wav",
+        "metrics": {}
+      },
+      {
+        "key": "fspen_adams",
+        "label": "FSPEN AdaMS",
+        "audio": "assets/audio/fileid_161/fspen_adams.wav",
+        "spectrogram": "assets/spectrograms/fileid_161/fspen_adams.png",
+        "source": "fileid_161.wav",
+        "metrics": {}
+      },
+      {
+        "key": "lisennet_original",
+        "label": "LiSenNet",
+        "audio": "assets/audio/fileid_161/lisennet_original.wav",
+        "spectrogram": "assets/spectrograms/fileid_161/lisennet_original.png",
+        "source": "fileid_161.wav",
+        "metrics": {}
+      },
+      {
+        "key": "lisennet_adams",
+        "label": "LiSenNet AdaMS",
+        "audio": "assets/audio/fileid_161/lisennet_adams.wav",
+        "spectrogram": "assets/spectrograms/fileid_161/lisennet_adams.png",
+        "source": "fileid_161.wav",
+        "metrics": {}
+      },
+      {
+        "key": "fastenhancer_b_original",
+        "label": "FastEnhancer-B",
+        "audio": "assets/audio/fileid_161/fastenhancer_b_original.wav",
+        "spectrogram": "assets/spectrograms/fileid_161/fastenhancer_b_original.png",
+        "source": "fileid_161.wav",
+        "metrics": {}
+      },
+      {
+        "key": "fastenhancer_b_adams",
+        "label": "FastEnhancer-B AdaMS",
+        "audio": "assets/audio/fileid_161/fastenhancer_b_adams.wav",
+        "spectrogram": "assets/spectrograms/fileid_161/fastenhancer_b_adams.png",
+        "source": "fileid_161.wav",
+        "metrics": {}
+      }
+    ],
+    "comparison_groups": [
+      {
+        "id": "bsrnn",
+        "label": "BSRNN",
+        "subtitle": "Original vs AdaMS",
+        "focus": {
+          "left": 48.0,
+          "top": 64.7,
+          "width": 22.0,
+          "height": 24.0
         },
         "tracks": [
           {
-            "key": "noisy",
-            "label": "Noisy",
-            "tag": "Input",
-            "audio": "assets/audio/fileid_161/noisy.wav",
-            "spectrogram": "assets/spectrograms/fileid_161/noisy.png",
-            "metrics": {
-              "pesq": 1.26,
-              "stoi": 0.889,
-              "dnsmos_ovl": 2.67
-            }
+            "key": "bsrnn_original",
+            "label": "Original",
+            "tag": "Origin",
+            "role": "origin"
           },
           {
-            "key": "enhanced",
-            "label": "Mamba",
-            "tag": "Enhanced",
-            "className": "primary",
-            "audio": "assets/audio/fileid_161/adapenhancer_b.wav",
-            "spectrogram": "assets/spectrograms/fileid_161/adapenhancer_b.png",
-            "metrics": {
-              "pesq": 2.25,
-              "estoi": 0.882,
-              "sisdr": 13.7,
-              "dnsmos": 3.85,
-              "dnsmos_ovl": 3.01
-            }
-          },
-          {
-            "key": "clean",
-            "label": "Clean",
-            "tag": "Reference",
-            "className": "clean",
-            "audio": "assets/audio/fileid_161/clean.wav",
-            "spectrogram": "assets/spectrograms/fileid_161/clean.png",
-            "metrics": {}
+            "key": "bsrnn_adams",
+            "label": "AdaMS",
+            "tag": "AdaMS",
+            "role": "adams"
           }
         ]
       },
       {
-        "id": "fileid_192",
-        "noise": "Vacuum cleaner",
-        "label": "Vacuum motor noise",
-        "snr": "1 dB",
-        "metrics": {
-          "noisy": {
-            "pesq": 1.06,
-            "stoi": 0.715,
-            "dnsmos_ovl": 1.15
-          },
-          "enhanced": {
-            "pesq": 1.65,
-            "estoi": 0.763,
-            "sisdr": 10.5,
-            "dnsmos": 3.55,
-            "dnsmos_ovl": 2.83
-          }
+        "id": "fspen",
+        "label": "FSPEN",
+        "subtitle": "Original vs AdaMS",
+        "focus": {
+          "left": 48.0,
+          "top": 64.7,
+          "width": 22.0,
+          "height": 24.0
         },
         "tracks": [
           {
-            "key": "noisy",
-            "label": "Noisy",
-            "tag": "Input",
-            "audio": "assets/audio/fileid_192/noisy.wav",
-            "spectrogram": "assets/spectrograms/fileid_192/noisy.png",
-            "metrics": {
-              "pesq": 1.06,
-              "stoi": 0.715,
-              "dnsmos_ovl": 1.15
-            }
+            "key": "fspen_original",
+            "label": "Original",
+            "tag": "Origin",
+            "role": "origin"
           },
           {
-            "key": "enhanced",
-            "label": "Mamba",
-            "tag": "Enhanced",
-            "className": "primary",
-            "audio": "assets/audio/fileid_192/adapenhancer_b.wav",
-            "spectrogram": "assets/spectrograms/fileid_192/adapenhancer_b.png",
-            "metrics": {
-              "pesq": 1.65,
-              "estoi": 0.763,
-              "sisdr": 10.5,
-              "dnsmos": 3.55,
-              "dnsmos_ovl": 2.83
-            }
-          },
-          {
-            "key": "clean",
-            "label": "Clean",
-            "tag": "Reference",
-            "className": "clean",
-            "audio": "assets/audio/fileid_192/clean.wav",
-            "spectrogram": "assets/spectrograms/fileid_192/clean.png",
-            "metrics": {}
+            "key": "fspen_adams",
+            "label": "AdaMS",
+            "tag": "AdaMS",
+            "role": "adams"
           }
         ]
       },
       {
-        "id": "fileid_5",
-        "noise": "Breath",
-        "label": "Breathing noise",
-        "snr": "3 dB",
-        "metrics": {
-          "noisy": {
-            "pesq": 1.41,
-            "stoi": 0.928,
-            "dnsmos_ovl": 2.95
-          },
-          "enhanced": {
-            "pesq": 2.94,
-            "estoi": 0.921,
-            "sisdr": 15.8,
-            "dnsmos": 4.01,
-            "dnsmos_ovl": 3.24
-          }
+        "id": "lisennet",
+        "label": "LiSenNet",
+        "subtitle": "Original vs AdaMS",
+        "focus": {
+          "left": 48.0,
+          "top": 64.7,
+          "width": 22.0,
+          "height": 24.0
         },
         "tracks": [
           {
-            "key": "noisy",
-            "label": "Noisy",
-            "tag": "Input",
-            "audio": "assets/audio/fileid_5/noisy.wav",
-            "spectrogram": "assets/spectrograms/fileid_5/noisy.png",
-            "metrics": {
-              "pesq": 1.41,
-              "stoi": 0.928,
-              "dnsmos_ovl": 2.95
-            }
+            "key": "lisennet_original",
+            "label": "Original",
+            "tag": "Origin",
+            "role": "origin"
           },
           {
-            "key": "enhanced",
-            "label": "Mamba",
-            "tag": "Enhanced",
-            "className": "primary",
-            "audio": "assets/audio/fileid_5/adapenhancer_b.wav",
-            "spectrogram": "assets/spectrograms/fileid_5/adapenhancer_b.png",
-            "metrics": {
-              "pesq": 2.94,
-              "estoi": 0.921,
-              "sisdr": 15.8,
-              "dnsmos": 4.01,
-              "dnsmos_ovl": 3.24
-            }
+            "key": "lisennet_adams",
+            "label": "AdaMS",
+            "tag": "AdaMS",
+            "role": "adams"
+          }
+        ]
+      },
+      {
+        "id": "fastenhancer_b_adams",
+        "label": "FastEnhancer-B",
+        "subtitle": "Original vs AdaMS",
+        "focus": {
+          "left": 48.0,
+          "top": 64.7,
+          "width": 22.0,
+          "height": 24.0
+        },
+        "tracks": [
+          {
+            "key": "fastenhancer_b_original",
+            "label": "Original",
+            "tag": "Origin",
+            "role": "origin"
           },
           {
-            "key": "clean",
-            "label": "Clean",
-            "tag": "Reference",
-            "className": "clean",
-            "audio": "assets/audio/fileid_5/clean.wav",
-            "spectrogram": "assets/spectrograms/fileid_5/clean.png",
-            "metrics": {}
+            "key": "fastenhancer_b_adams",
+            "label": "AdaMS",
+            "tag": "AdaMS",
+            "role": "adams"
           }
         ]
       }
     ]
   },
   {
-    "id": "vssformer",
-    "title": "VSSFormer",
-    "subtitle": "Laser vibration sensing examples from ZJJ noisy recordings",
-    "samples": [
+    "id": "fileid_192",
+    "noise": "Vacuum cleaner",
+    "label": "Vacuum motor noise",
+    "snr": "1 dB",
+    "reference_keys": [
+      "noisy",
+      "adapenhancer_b",
+      "clean"
+    ],
+    "metrics": {
+      "noisy": {
+        "pesq": 1.06,
+        "stoi": 0.715,
+        "dnsmos_ovl": 1.15
+      },
+      "adapenhancer_b": {
+        "pesq": 1.65,
+        "estoi": 0.763,
+        "sisdr": 10.5,
+        "dnsmos": 3.55,
+        "dnsmos_ovl": 2.83
+      },
+      "clean": {},
+      "bsrnn_original": {},
+      "bsrnn_adams": {},
+      "fspen_original": {},
+      "fspen_adams": {},
+      "lisennet_original": {},
+      "lisennet_adams": {},
+      "fastenhancer_b_original": {},
+      "fastenhancer_b_adams": {}
+    },
+    "conditions": [
       {
-        "id": "zjj_l1_cn",
-        "noise": "ZJJ noisy laser recording",
-        "label": "ZJJ Chinese L1",
-        "snr": "Recorded",
-        "metrics": {},
-        "tracks": [
-          {
-            "key": "noisy",
-            "label": "Noisy",
-            "tag": "Input",
-            "audio": "assets/audio/vssformer/zjj_l1_cn/noisy.wav",
-            "spectrogram": "assets/spectrograms/vssformer/zjj_l1_cn/noisy.png",
-            "metrics": {}
-          },
-          {
-            "key": "enhanced",
-            "label": "VSSFormer",
-            "tag": "Enhanced",
-            "className": "primary",
-            "audio": "assets/audio/vssformer/zjj_l1_cn/enhanced.wav",
-            "spectrogram": "assets/spectrograms/vssformer/zjj_l1_cn/enhanced.png",
-            "metrics": {}
-          }
-        ],
-        "source": "中文S_1030_115645_L1"
+        "key": "noisy",
+        "label": "Noisy",
+        "audio": "assets/audio/fileid_192/noisy.wav",
+        "spectrogram": "assets/spectrograms/fileid_192/noisy.png",
+        "source": "clnsp186_vacuum_353640_3_snr1_tl-27_fileid_192.wav",
+        "metrics": {
+          "pesq": 1.06,
+          "stoi": 0.715,
+          "dnsmos_ovl": 1.15
+        }
       },
       {
-        "id": "zjj_l2_cn",
-        "noise": "ZJJ noisy laser recording",
-        "label": "ZJJ Chinese L2",
-        "snr": "Recorded",
-        "metrics": {},
-        "tracks": [
-          {
-            "key": "noisy",
-            "label": "Noisy",
-            "tag": "Input",
-            "audio": "assets/audio/vssformer/zjj_l2_cn/noisy.wav",
-            "spectrogram": "assets/spectrograms/vssformer/zjj_l2_cn/noisy.png",
-            "metrics": {}
-          },
-          {
-            "key": "enhanced",
-            "label": "VSSFormer",
-            "tag": "Enhanced",
-            "className": "primary",
-            "audio": "assets/audio/vssformer/zjj_l2_cn/enhanced.wav",
-            "spectrogram": "assets/spectrograms/vssformer/zjj_l2_cn/enhanced.png",
-            "metrics": {}
-          }
-        ],
-        "source": "中文S_1030_115645_L2"
+        "key": "adapenhancer_b",
+        "label": "AdapEnhancer-B",
+        "audio": "assets/audio/fileid_192/adapenhancer_b.wav",
+        "spectrogram": "assets/spectrograms/fileid_192/adapenhancer_b.png",
+        "source": "fileid_192.wav",
+        "metrics": {
+          "pesq": 1.65,
+          "estoi": 0.763,
+          "sisdr": 10.5,
+          "dnsmos": 3.55,
+          "dnsmos_ovl": 2.83
+        }
       },
       {
-        "id": "zjj_l4_cn",
-        "noise": "ZJJ noisy laser recording",
-        "label": "ZJJ Chinese L4",
-        "snr": "Recorded",
-        "metrics": {},
-        "tracks": [
-          {
-            "key": "noisy",
-            "label": "Noisy",
-            "tag": "Input",
-            "audio": "assets/audio/vssformer/zjj_l4_cn/noisy.wav",
-            "spectrogram": "assets/spectrograms/vssformer/zjj_l4_cn/noisy.png",
-            "metrics": {}
-          },
-          {
-            "key": "enhanced",
-            "label": "VSSFormer",
-            "tag": "Enhanced",
-            "className": "primary",
-            "audio": "assets/audio/vssformer/zjj_l4_cn/enhanced.wav",
-            "spectrogram": "assets/spectrograms/vssformer/zjj_l4_cn/enhanced.png",
-            "metrics": {}
-          }
-        ],
-        "source": "中文S_1030_115645_L4"
+        "key": "clean",
+        "label": "Clean",
+        "audio": "assets/audio/fileid_192/clean.wav",
+        "spectrogram": "assets/spectrograms/fileid_192/clean.png",
+        "source": "clean_fileid_192.wav",
+        "metrics": {}
       },
       {
-        "id": "zjj_l3_en",
-        "noise": "ZJJ noisy laser recording",
-        "label": "ZJJ English L3",
-        "snr": "Recorded",
-        "metrics": {},
+        "key": "bsrnn_original",
+        "label": "BSRNN",
+        "audio": "assets/audio/fileid_192/bsrnn_original.wav",
+        "spectrogram": "assets/spectrograms/fileid_192/bsrnn_original.png",
+        "source": "fileid_192.wav",
+        "metrics": {}
+      },
+      {
+        "key": "bsrnn_adams",
+        "label": "BSRNN AdaMS",
+        "audio": "assets/audio/fileid_192/bsrnn_adams.wav",
+        "spectrogram": "assets/spectrograms/fileid_192/bsrnn_adams.png",
+        "source": "fileid_192.wav",
+        "metrics": {}
+      },
+      {
+        "key": "fspen_original",
+        "label": "FSPEN",
+        "audio": "assets/audio/fileid_192/fspen_original.wav",
+        "spectrogram": "assets/spectrograms/fileid_192/fspen_original.png",
+        "source": "fileid_192.wav",
+        "metrics": {}
+      },
+      {
+        "key": "fspen_adams",
+        "label": "FSPEN AdaMS",
+        "audio": "assets/audio/fileid_192/fspen_adams.wav",
+        "spectrogram": "assets/spectrograms/fileid_192/fspen_adams.png",
+        "source": "fileid_192.wav",
+        "metrics": {}
+      },
+      {
+        "key": "lisennet_original",
+        "label": "LiSenNet",
+        "audio": "assets/audio/fileid_192/lisennet_original.wav",
+        "spectrogram": "assets/spectrograms/fileid_192/lisennet_original.png",
+        "source": "fileid_192.wav",
+        "metrics": {}
+      },
+      {
+        "key": "lisennet_adams",
+        "label": "LiSenNet AdaMS",
+        "audio": "assets/audio/fileid_192/lisennet_adams.wav",
+        "spectrogram": "assets/spectrograms/fileid_192/lisennet_adams.png",
+        "source": "fileid_192.wav",
+        "metrics": {}
+      },
+      {
+        "key": "fastenhancer_b_original",
+        "label": "FastEnhancer-B",
+        "audio": "assets/audio/fileid_192/fastenhancer_b_original.wav",
+        "spectrogram": "assets/spectrograms/fileid_192/fastenhancer_b_original.png",
+        "source": "fileid_192.wav",
+        "metrics": {}
+      },
+      {
+        "key": "fastenhancer_b_adams",
+        "label": "FastEnhancer-B AdaMS",
+        "audio": "assets/audio/fileid_192/fastenhancer_b_adams.wav",
+        "spectrogram": "assets/spectrograms/fileid_192/fastenhancer_b_adams.png",
+        "source": "fileid_192.wav",
+        "metrics": {}
+      }
+    ],
+    "comparison_groups": [
+      {
+        "id": "bsrnn",
+        "label": "BSRNN",
+        "subtitle": "Original vs AdaMS",
+        "focus": {
+          "left": 62.6,
+          "top": 6.0,
+          "width": 22.0,
+          "height": 37.1
+        },
         "tracks": [
           {
-            "key": "noisy",
-            "label": "Noisy",
-            "tag": "Input",
-            "audio": "assets/audio/vssformer/zjj_l3_en/noisy.wav",
-            "spectrogram": "assets/spectrograms/vssformer/zjj_l3_en/noisy.png",
-            "metrics": {}
+            "key": "bsrnn_original",
+            "label": "Original",
+            "tag": "Origin",
+            "role": "origin"
           },
           {
-            "key": "enhanced",
-            "label": "VSSFormer",
-            "tag": "Enhanced",
-            "className": "primary",
-            "audio": "assets/audio/vssformer/zjj_l3_en/enhanced.wav",
-            "spectrogram": "assets/spectrograms/vssformer/zjj_l3_en/enhanced.png",
-            "metrics": {}
+            "key": "bsrnn_adams",
+            "label": "AdaMS",
+            "tag": "AdaMS",
+            "role": "adams"
           }
-        ],
-        "source": "英文S_1030_115645_L3"
+        ]
+      },
+      {
+        "id": "fspen",
+        "label": "FSPEN",
+        "subtitle": "Original vs AdaMS",
+        "focus": {
+          "left": 62.6,
+          "top": 6.0,
+          "width": 22.0,
+          "height": 37.1
+        },
+        "tracks": [
+          {
+            "key": "fspen_original",
+            "label": "Original",
+            "tag": "Origin",
+            "role": "origin"
+          },
+          {
+            "key": "fspen_adams",
+            "label": "AdaMS",
+            "tag": "AdaMS",
+            "role": "adams"
+          }
+        ]
+      },
+      {
+        "id": "lisennet",
+        "label": "LiSenNet",
+        "subtitle": "Original vs AdaMS",
+        "focus": {
+          "left": 62.6,
+          "top": 6.0,
+          "width": 22.0,
+          "height": 37.1
+        },
+        "tracks": [
+          {
+            "key": "lisennet_original",
+            "label": "Original",
+            "tag": "Origin",
+            "role": "origin"
+          },
+          {
+            "key": "lisennet_adams",
+            "label": "AdaMS",
+            "tag": "AdaMS",
+            "role": "adams"
+          }
+        ]
+      },
+      {
+        "id": "fastenhancer_b_adams",
+        "label": "FastEnhancer-B",
+        "subtitle": "Original vs AdaMS",
+        "focus": {
+          "left": 62.6,
+          "top": 6.0,
+          "width": 22.0,
+          "height": 37.1
+        },
+        "tracks": [
+          {
+            "key": "fastenhancer_b_original",
+            "label": "Original",
+            "tag": "Origin",
+            "role": "origin"
+          },
+          {
+            "key": "fastenhancer_b_adams",
+            "label": "AdaMS",
+            "tag": "AdaMS",
+            "role": "adams"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "fileid_5",
+    "noise": "Breath",
+    "label": "Breathing noise",
+    "snr": "3 dB",
+    "reference_keys": [
+      "noisy",
+      "adapenhancer_b",
+      "clean"
+    ],
+    "metrics": {
+      "noisy": {
+        "pesq": 1.41,
+        "stoi": 0.928,
+        "dnsmos_ovl": 2.95
+      },
+      "adapenhancer_b": {
+        "pesq": 2.94,
+        "estoi": 0.921,
+        "sisdr": 15.8,
+        "dnsmos": 4.01,
+        "dnsmos_ovl": 3.24
+      },
+      "clean": {},
+      "bsrnn_original": {},
+      "bsrnn_adams": {},
+      "fspen_original": {},
+      "fspen_adams": {},
+      "lisennet_original": {},
+      "lisennet_adams": {},
+      "fastenhancer_b_original": {},
+      "fastenhancer_b_adams": {}
+    },
+    "conditions": [
+      {
+        "key": "noisy",
+        "label": "Noisy",
+        "audio": "assets/audio/fileid_5/noisy.wav",
+        "spectrogram": "assets/spectrograms/fileid_5/noisy.png",
+        "source": "clnsp609_breath_336530_2_snr3_tl-30_fileid_5.wav",
+        "metrics": {
+          "pesq": 1.41,
+          "stoi": 0.928,
+          "dnsmos_ovl": 2.95
+        }
+      },
+      {
+        "key": "adapenhancer_b",
+        "label": "AdapEnhancer-B",
+        "audio": "assets/audio/fileid_5/adapenhancer_b.wav",
+        "spectrogram": "assets/spectrograms/fileid_5/adapenhancer_b.png",
+        "source": "fileid_5.wav",
+        "metrics": {
+          "pesq": 2.94,
+          "estoi": 0.921,
+          "sisdr": 15.8,
+          "dnsmos": 4.01,
+          "dnsmos_ovl": 3.24
+        }
+      },
+      {
+        "key": "clean",
+        "label": "Clean",
+        "audio": "assets/audio/fileid_5/clean.wav",
+        "spectrogram": "assets/spectrograms/fileid_5/clean.png",
+        "source": "clean_fileid_5.wav",
+        "metrics": {}
+      },
+      {
+        "key": "bsrnn_original",
+        "label": "BSRNN",
+        "audio": "assets/audio/fileid_5/bsrnn_original.wav",
+        "spectrogram": "assets/spectrograms/fileid_5/bsrnn_original.png",
+        "source": "fileid_5.wav",
+        "metrics": {}
+      },
+      {
+        "key": "bsrnn_adams",
+        "label": "BSRNN AdaMS",
+        "audio": "assets/audio/fileid_5/bsrnn_adams.wav",
+        "spectrogram": "assets/spectrograms/fileid_5/bsrnn_adams.png",
+        "source": "fileid_5.wav",
+        "metrics": {}
+      },
+      {
+        "key": "fspen_original",
+        "label": "FSPEN",
+        "audio": "assets/audio/fileid_5/fspen_original.wav",
+        "spectrogram": "assets/spectrograms/fileid_5/fspen_original.png",
+        "source": "fileid_5.wav",
+        "metrics": {}
+      },
+      {
+        "key": "fspen_adams",
+        "label": "FSPEN AdaMS",
+        "audio": "assets/audio/fileid_5/fspen_adams.wav",
+        "spectrogram": "assets/spectrograms/fileid_5/fspen_adams.png",
+        "source": "fileid_5.wav",
+        "metrics": {}
+      },
+      {
+        "key": "lisennet_original",
+        "label": "LiSenNet",
+        "audio": "assets/audio/fileid_5/lisennet_original.wav",
+        "spectrogram": "assets/spectrograms/fileid_5/lisennet_original.png",
+        "source": "fileid_5.wav",
+        "metrics": {}
+      },
+      {
+        "key": "lisennet_adams",
+        "label": "LiSenNet AdaMS",
+        "audio": "assets/audio/fileid_5/lisennet_adams.wav",
+        "spectrogram": "assets/spectrograms/fileid_5/lisennet_adams.png",
+        "source": "fileid_5.wav",
+        "metrics": {}
+      },
+      {
+        "key": "fastenhancer_b_original",
+        "label": "FastEnhancer-B",
+        "audio": "assets/audio/fileid_5/fastenhancer_b_original.wav",
+        "spectrogram": "assets/spectrograms/fileid_5/fastenhancer_b_original.png",
+        "source": "fileid_5.wav",
+        "metrics": {}
+      },
+      {
+        "key": "fastenhancer_b_adams",
+        "label": "FastEnhancer-B AdaMS",
+        "audio": "assets/audio/fileid_5/fastenhancer_b_adams.wav",
+        "spectrogram": "assets/spectrograms/fileid_5/fastenhancer_b_adams.png",
+        "source": "fileid_5.wav",
+        "metrics": {}
+      }
+    ],
+    "comparison_groups": [
+      {
+        "id": "bsrnn",
+        "label": "BSRNN",
+        "subtitle": "Original vs AdaMS",
+        "focus": {
+          "left": 12.7,
+          "top": 6.0,
+          "width": 22.0,
+          "height": 37.1
+        },
+        "tracks": [
+          {
+            "key": "bsrnn_original",
+            "label": "Original",
+            "tag": "Origin",
+            "role": "origin"
+          },
+          {
+            "key": "bsrnn_adams",
+            "label": "AdaMS",
+            "tag": "AdaMS",
+            "role": "adams"
+          }
+        ]
+      },
+      {
+        "id": "fspen",
+        "label": "FSPEN",
+        "subtitle": "Original vs AdaMS",
+        "focus": {
+          "left": 12.7,
+          "top": 6.0,
+          "width": 22.0,
+          "height": 37.1
+        },
+        "tracks": [
+          {
+            "key": "fspen_original",
+            "label": "Original",
+            "tag": "Origin",
+            "role": "origin"
+          },
+          {
+            "key": "fspen_adams",
+            "label": "AdaMS",
+            "tag": "AdaMS",
+            "role": "adams"
+          }
+        ]
+      },
+      {
+        "id": "lisennet",
+        "label": "LiSenNet",
+        "subtitle": "Original vs AdaMS",
+        "focus": {
+          "left": 12.7,
+          "top": 6.0,
+          "width": 22.0,
+          "height": 37.1
+        },
+        "tracks": [
+          {
+            "key": "lisennet_original",
+            "label": "Original",
+            "tag": "Origin",
+            "role": "origin"
+          },
+          {
+            "key": "lisennet_adams",
+            "label": "AdaMS",
+            "tag": "AdaMS",
+            "role": "adams"
+          }
+        ]
+      },
+      {
+        "id": "fastenhancer_b_adams",
+        "label": "FastEnhancer-B",
+        "subtitle": "Original vs AdaMS",
+        "focus": {
+          "left": 12.7,
+          "top": 6.0,
+          "width": 22.0,
+          "height": 37.1
+        },
+        "tracks": [
+          {
+            "key": "fastenhancer_b_original",
+            "label": "Original",
+            "tag": "Origin",
+            "role": "origin"
+          },
+          {
+            "key": "fastenhancer_b_adams",
+            "label": "AdaMS",
+            "tag": "AdaMS",
+            "role": "adams"
+          }
+        ]
       }
     ]
   }
